@@ -5,6 +5,7 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
+       "noEmitOnError": true,// if true, errors mean js won't be generated /* Disable emitting files if any type checking errors are reported. */
 
     /* Bundler mode */
     "moduleResolution": "bundler",
