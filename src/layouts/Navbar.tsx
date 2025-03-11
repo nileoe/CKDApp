@@ -4,13 +4,13 @@
 //import './Navbar.scss';
 //import { useAuth } from '../auth/useAuth';
 //
-function Navbar() {
-  //const { loggedInUser } = useAuth();
-  const loggedInUserIsAdmin = loggedInUser && loggedInUser.UsertypeID === 1;
-  if (loggedInUser) {
-    console.log(`navbar:is admin is ${loggedInUserIsAdmin}`);
-  }
-  return 
+//function Navbar() {
+//  //const { loggedInUser } = useAuth();
+//  const loggedInUserIsAdmin = loggedInUser && loggedInUser.UsertypeID === 1;
+//  if (loggedInUser) {
+//    console.log(`navbar:is admin is ${loggedInUserIsAdmin}`);
+//  }
+//  return
 //
 //  return (
 //    <>
