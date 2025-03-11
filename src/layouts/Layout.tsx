@@ -11,7 +11,8 @@ type LayoutProps = {
 };
 
 //<Navbar />
-function Layout({ loggedInUser, children }: LayoutProps) {
+//function Layout({ loggedInUser, children }: LayoutProps) {
+function Layout({ children }: LayoutProps) {
   //const { loggedInUser } = useAuth();
   return (
     <div className="layout">
