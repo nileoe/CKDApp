@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+$brown: #644f4f;
+$backgroundYellow: #eee2d2;
 
 * {
   margin: 0px;
@@ -8,11 +10,11 @@
 }
 
 div.layout {
-  background: red;
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto 1fr auto;
+  background: $backgroundYellow;
+  height: 100vh;
+  // display: grid;
+  // grid-template-columns: 1fr;
+  // grid-template-rows: auto auto 1fr auto;
 
   main {
     padding: 20px;

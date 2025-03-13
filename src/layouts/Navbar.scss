@@ -1,38 +1,49 @@
-$yellowBee: #ffd375; //yellow bee
-$yellowBeeHover: darken($yellowBee, 10%); // darker yellow for hover effect
-$yellowBeeActive: darken($yellowBee, 20%); // darker x2 yellow for hover effect
+$brown: #644f4f;
+$backgroundYellow: #eee2d2;
 
 nav {
-  padding: 5px;
-  background: $yellowBee;
   display: flex;
-  gap: 10px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: 1px solid black;
+  justify-content: space-between;
+  background: $brown;
+  padding: 30px 0px 0px 0px;
+  align-items: end;
 
-  .navItem {
-    flex: 0 0 auto auto;
-    padding: 8px;
-    background: $yellowBee;
-    border-radius: 10px;
+  .navArea {
+    padding: 0px 10px;
+    display: flex;
+    gap: 10px;
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    .navItem {
+      flex: 0 0 auto auto;
+      // background: $backgroundYellow;
+      border-radius: 5px 5px 0px 0px;
+
+      text-decoration: none; /* Remove underline */
+      &:hover {
+        transform: translateY(-1px);
+        // font-weight: bold;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
     }
-  }
-
-  #logIn,
-  #acc {
-    margin-left: auto;
-  }
-
-  div.navItem a {
-    color: black;
-    text-decoration: none;
-
-    &:hover {
-      font-weight: bold;
+    .leftItem {
+      padding: 8px;
+      background: $backgroundYellow;
+      // > * {
+      color: $brown;
+      // }
+    }
+    .rightItem {
+      > * {
+        color: $backgroundYellow;
+        font-weight: bold;
+        // border: 1px solid $backgroundYellow;
+        // border-radius: 5px;
+        padding: 8px;
+        height: 22px;
+      }
     }
   }
 }
