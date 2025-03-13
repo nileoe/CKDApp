@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 //
 function Navbar() {
   //const { loggedInUser } = useAuth();
-  //const loggedInUserIsAdmin = false // TODO placeholder
+  const loggedInUserIsAdmin = false; // TODO placeholder
   // activeClassName = the current URL matches the one in 'exact'
   return (
     <nav>
