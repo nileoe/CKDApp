@@ -2,26 +2,46 @@ $brown: #644f4f;
 $backgroundYellow: #eee2d2;
 
 nav {
-  padding: 5px;
-  background: $brown;
   display: flex;
-  gap: 10px;
-  align-items: end;
+  justify-content: space-between;
+  background: $brown;
 
-  .navItem {
-    flex: 0 0 auto auto;
-    padding: 8px;
-    background: $backgroundYellow;
-    border-radius: 5px 5px 0px 0px;
-    color: $brown;
+  .navArea {
+    padding: 5px;
+    display: flex;
+    gap: 10px;
 
-    &:hover {
-      transform: translateY(-3px);
-      font-weight: bold;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+    .navItem {
+      flex: 0 0 auto auto;
+      // background: $backgroundYellow;
+      border-radius: 5px 5px 0px 0px;
+
+      text-decoration: none; /* Remove underline */
+      &:hover {
+        transform: translateY(-1px);
+        font-weight: bold;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+    }
+    .leftItem {
+      padding: 8px;
+      background: $backgroundYellow;
+      // > * {
+      color: $brown;
+      // }
+    }
+    .rightItem {
+      > * {
+        color: $backgroundYellow;
+        font-weight: bold;
+        // border: 1px solid $backgroundYellow;
+        // border-radius: 5px;
+        padding: 8px;
+        height: 22px;
+      }
     }
   }
 }
