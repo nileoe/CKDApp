@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { User } from "../types.js";
 //import { useAuth } from "../auth/useAuth";
-//import "./Layout.scss";
+import "./Layout.scss";
 
 type LayoutProps = {
   loggedInUser?: User;
@@ -15,7 +15,6 @@ function Layout({ children }: LayoutProps) {
   //const { loggedInUser } = useAuth();
   return (
     <div className="layout">
-      <Header />
       <Navbar />
       <main>{children}</main>
 

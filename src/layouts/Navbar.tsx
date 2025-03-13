@@ -41,42 +41,42 @@ function Navbar() {
         </NavLink>
       </div>
     </nav>
-
-    //<nav>
-    //  <div className="navArea">
-    //    <div className="navItem leftItem">
-    //      <NavLink to="/calculator">Calculator</NavLink>
-    //    </div>
-    //    <div className="navItem leftItem">
-    //      <NavLink to="/past_results">Past Results</NavLink>
-    //    </div>
-    //    <div className="navItem leftItem">
-    //      <NavLink to="/consultation_notes">Consultation Notes</NavLink>
-    //    </div>
-    //    <div className="navItem leftItem">
-    //      <NavLink to="/CKD_stages">CKD Stages</NavLink>
-    //    </div>
-    //  </div>
-    //
-    //  <div className="navArea">
-    //    <div className="navItem rightItem">
-    //      <NavLink to="/account">
-    //        <FontAwesomeIcon icon={faArrowRightFromBracket} />
-    //      </NavLink>
-    //    </div>
-    //    <div className="navItem rightItem">
-    //      <NavLink to="/account">
-    //        <FontAwesomeIcon icon={faUser} />
-    //      </NavLink>
-    //    </div>
-    //    <div className="navItem rightItem">
-    //      <NavLink to="/account">
-    //        <FontAwesomeIcon icon={faGear} />
-    //      </NavLink>
-    //    </div>
-    //  </div>
-    //</nav>
   );
 }
+
+//<nav>
+//  <div className="navArea">
+//    <div className="navItem leftItem">
+//      <NavLink to="/calculator">Calculator</NavLink>
+//    </div>
+//    <div className="navItem leftItem">
+//      <NavLink to="/past_results">Past Results</NavLink>
+//    </div>
+//    <div className="navItem leftItem">
+//      <NavLink to="/consultation_notes">Consultation Notes</NavLink>
+//    </div>
+//    <div className="navItem leftItem">
+//      <NavLink to="/CKD_stages">CKD Stages</NavLink>
+//    </div>
+//  </div>
+//
+//  <div className="navArea">
+//    <div className="navItem rightItem">
+//      <NavLink to="/account">
+//        <FontAwesomeIcon icon={faArrowRightFromBracket} />
+//      </NavLink>
+//    </div>
+//    <div className="navItem rightItem">
+//      <NavLink to="/account">
+//        <FontAwesomeIcon icon={faUser} />
+//      </NavLink>
+//    </div>
+//    <div className="navItem rightItem">
+//      <NavLink to="/account">
+//        <FontAwesomeIcon icon={faGear} />
+//      </NavLink>
+//    </div>
+//  </div>
+//</nav>
 
 export default Navbar;

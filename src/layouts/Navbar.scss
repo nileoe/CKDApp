@@ -5,9 +5,11 @@ nav {
   display: flex;
   justify-content: space-between;
   background: $brown;
+  padding: 30px 0px 0px 0px;
+  align-items: end;
 
   .navArea {
-    padding: 5px;
+    padding: 0px 10px;
     display: flex;
     gap: 10px;
 
@@ -19,7 +21,7 @@ nav {
       text-decoration: none; /* Remove underline */
       &:hover {
         transform: translateY(-1px);
-        font-weight: bold;
+        // font-weight: bold;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         transition:
           transform 0.2s,
