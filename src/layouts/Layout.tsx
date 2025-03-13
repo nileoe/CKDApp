@@ -1,5 +1,5 @@
 import Header from "./Header";
-//import Navbar from "./Navbar";
+import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { User } from "../types.js";
 //import { useAuth } from "../auth/useAuth";
@@ -10,13 +10,13 @@ type LayoutProps = {
   children?: React.ReactNode;
 };
 
-//<Navbar />
 //function Layout({ loggedInUser, children }: LayoutProps) {
 function Layout({ children }: LayoutProps) {
   //const { loggedInUser } = useAuth();
   return (
     <div className="layout">
       <Header />
+      <Navbar />
       <main>{children}</main>
 
       <Footer />

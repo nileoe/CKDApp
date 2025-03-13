@@ -1,58 +1,24 @@
-//import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faUser } from '@fortawesome/free-solid-svg-icons';
 //import './Navbar.scss';
 //import { useAuth } from '../auth/useAuth';
 //
-//function Navbar() {
-//  //const { loggedInUser } = useAuth();
-//  const loggedInUserIsAdmin = loggedInUser && loggedInUser.UsertypeID === 1;
-//  if (loggedInUser) {
-//    console.log(`navbar:is admin is ${loggedInUserIsAdmin}`);
-//  }
-//  return
-//
-//  return (
-//    <>
-//      <nav>
-//        <div className="navItem">
-//          <NavLink exact to="/" activeClassName="active">
-//            Home
-//          </NavLink>
-//        </div>
-//        {loggedInUser && !loggedInUserIsAdmin && (
-//          <div className="navItem">
-//            <NavLink to="/projects" activeClassName="active">
-//              Projects
-//            </NavLink>
-//          </div>
-//        )}
-//        {loggedInUserIsAdmin ? (
-//          <div className="navItem">
-//            <NavLink exact to="/modules" activeClassName="active">
-//              Modules
-//            </NavLink>
-//          </div>
-//        ) : null}
-//        {!loggedInUser ? (
-//          <div className="navItem" id="logIn">
-//            <NavLink to="/login" activeClassName="active">
-//              Login
-//            </NavLink>
-//          </div>
-//        ) : (
-//          <div className="navItem" id="acc">
-//            <NavLink to="/account" activeClassName="active">
-//              <FontAwesomeIcon icon={faUser} />
-//            </NavLink>
-//          </div>
-//        )}
-//      </nav>
-//    </>
-//  );
-//}
-//
-//export default Navbar;
+function Navbar() {
+  //const { loggedInUser } = useAuth();
+  //const loggedInUserIsAdmin = false // TODO placeholder
+  // activeClassName = the current URL matches the one in 'exact'
+  return (
+    <nav>
+      <NavLink to="/calculator">Calculator</NavLink>
+      <NavLink to="/past_results">Past Results</NavLink>
+      <NavLink to="/consultation_notes">Consultation Notes</NavLink>
+      <NavLink to="/CKD_stages">CKD Stages</NavLink>
+    </nav>
+  );
+}
+
+export default Navbar;
 //
 //// //lino
 //// <>
