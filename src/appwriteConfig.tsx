@@ -8,7 +8,20 @@ client.setEndpoint(API_ENDPOINT).setProject(PROJECT_ID);
 
 export const account = new Account(client);
 
+export const getCurrentUser = async () => {
+  try {
+    return await account.get();
+  } catch (error) {
+    return null;
+  }
+};
+
 export const login = async (email: string, password: string) => {
+  const user = await getCurrentUser();
+  if (user) {
+    return user;
+  }
+
   try {
     return await account.createEmailPasswordSession(email, password);
   } catch (error) {
@@ -16,7 +29,6 @@ export const login = async (email: string, password: string) => {
     throw error;
   }
 };
-
 export const logout = async () => {
   await account.deleteSession("current");
 };

@@ -1,6 +1,14 @@
+import { useLocation } from "react-router-dom";
 import "./Footer.scss";
 
 function Footer() {
+  const location = useLocation();
+
+  const hideFooterRoutes = ["/", "/register"];
+  if (hideFooterRoutes.includes(location.pathname)) {
+    return null;
+  }
+
   return (
     <footer>
       <p className="footerText">©CKDTeam Placeholder Footer Text</p>

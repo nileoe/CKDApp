@@ -3,6 +3,7 @@ import React from "react";
 import { login } from "../appwriteConfig";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Login.scss";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,35 +17,47 @@ const Login = () => {
 
     try {
       await login(email, password);
-      navigate("/home");
+      navigate("/calculator");
     } catch (err) {
       setError("Invalid Details. Please Try Again");
     }
   };
 
   return (
-    <div>
-      <div>
-        <h2>Welcome to CKDApp</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">Login</button>
+    <div className="container">
+      <div className="loginBox">
+        <h2 className="loginTitle">Welcome to CKDApp</h2>
+        <form onSubmit={handleLogin} className="loginForm">
+          <div className="inputGroup">
+            <input
+              type="email"
+              className="loginInput"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="inputGroup">
+            <input
+              type="password"
+              className="loginInput"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="loginBtn">
+            Login
+          </button>
         </form>
-        Don't have an account?
-        <Link to="/register">Sign up</Link>
+        <p className="signupText">
+          Don't have an account?{" "}
+          <Link to="/register" className="signupLink">
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );
