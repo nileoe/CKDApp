@@ -6,6 +6,7 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.scss";
+import { logout } from "../appwriteConfig";
 //import { useAuth } from '../auth/useAuth';
 //
 function Navbar() {
@@ -30,7 +31,7 @@ function Navbar() {
       </div>
 
       <div className="navArea">
-        <NavLink to="/signout" className="navItem rightItem">
+        <NavLink to="/" onClick={logout} className="navItem rightItem">
           <FontAwesomeIcon icon={faArrowRightFromBracket} />
         </NavLink>
         <NavLink to="/account" className="navItem rightItem">

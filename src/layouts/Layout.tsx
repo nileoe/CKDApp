@@ -1,4 +1,4 @@
-import Header from "./Header";
+import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { User } from "../types.js";
@@ -10,12 +10,15 @@ type LayoutProps = {
   children?: React.ReactNode;
 };
 
-//function Layout({ loggedInUser, children }: LayoutProps) {
 function Layout({ children }: LayoutProps) {
-  //const { loggedInUser } = useAuth();
+  const location = useLocation();
+
+  const hideNavbarRoutes = ["/", "/register"];
+
   return (
     <div className="layout">
-      <Navbar />
+      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+
       <main>{children}</main>
 
       <Footer />
