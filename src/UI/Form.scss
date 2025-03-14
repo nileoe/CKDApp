@@ -1,0 +1,73 @@
+$BorderGrey: LightGrey;
+
+div.Form {
+  border: 1px solid $BorderGrey;
+  border-radius: 3px;
+  padding: 20px 20px;
+  margin: 0 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  min-width: 400px;
+
+  div.FormTray {
+    width: 100%;
+
+    .FormItem {
+      margin-bottom: 20px;
+
+      label.FormLabel {
+        font-weight: 600;
+        display: block;
+      }
+      p.FormAdvice {
+        color: DarkGreen;
+        font-weight: 400;
+        font-size: 90%;
+      }
+      p.FormError {
+        color: DarkRed;
+        font-weight: 400;
+        font-size: 90%;
+      }
+
+      select,
+      input[type="text"],
+      div.FormRadioGroup {
+        display: block;
+        width: 100%;
+        padding: 3px;
+        margin: 1px 0;
+        font-size: 100%;
+        border-radius: 0px;
+        border: 1px solid $BorderGrey;
+        background: White;
+
+        &:hover,
+        &:focus {
+          outline-width: 1px;
+          outline-style: solid;
+          border-width: 1px;
+          border-style: solid;
+        }
+
+        &:hover {
+          border-color: $BorderGrey;
+          outline-color: $BorderGrey;
+        }
+
+        &:focus {
+          border-color: DarkGreen;
+          outline-color: DarkGreen;
+        }
+      }
+      div.FormRadioGroup {
+        color: Grey;
+        input[type="radio"] {
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+}
