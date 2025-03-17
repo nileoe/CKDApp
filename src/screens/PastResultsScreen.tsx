@@ -16,6 +16,7 @@ const PastResultsScreen = () => {
         suscipit, magna placerat. Massa lobortis luctus pharetra ornare vitae
         et. Mattis habitant sit porta leo netus odio.
       </p>
+      <button onClick={() => window.console.log("yo")}>hh</button>
     </>
   );
 };

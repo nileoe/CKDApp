@@ -3,8 +3,3 @@ export type User = {
   username: string;
   userType: "patient" | "clinitian";
 };
-
-type CreatinineLevel = {
-  id: number;
-  level: number;
-};

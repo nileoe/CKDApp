@@ -41,10 +41,24 @@
          backend using the provided onSubmit method.
 */
 
+import { CalculationData } from "../types";
 import "./Form.scss";
 import { useState } from "react";
 
-function Form({ children, onSubmit, onCancel }) {
+type FormProps = {
+  onSubmit: (newRecord: any) => void;
+  onCancel?: () => void;
+  children?: React.ReactNode;
+};
+type FormItemProps = {
+  children?: React.ReactNode;
+  label: string;
+  advice?: string;
+  error?: string;
+};
+
+//function Form({ onSubmit, onCancel, children }: FormProps) {
+function Form({ onSubmit, children }: FormProps) {
   // Initialization -------------------------------------------------------
   // State ------------------------------------------------------------------
   // Handlers --------------------------------------------------------------
@@ -52,15 +66,17 @@ function Form({ children, onSubmit, onCancel }) {
   return (
     <div className="Form">
       <div className="FormTray">{children}</div>
+      <button onClick={onSubmit}>Submit</button>
     </div>
   );
 }
+// TODO maybe put action tray back, or have a conditional 'includeActionTray bool'
 //<Action.Tray>
 //  <Action.Submit showText onClick={onSubmit} />
 //  <Action.Cancel showText buttonText="Cancel form" onClick={onCancel} />
 //</Action.Tray>
 
-function Item({ children, label, advice, error }) {
+function Item({ children, label, advice, error }: FormItemProps) {
   // Initialization -------------------------------------------------------
   // State ------------------------------------------------------------------
   // Handlers --------------------------------------------------------------
@@ -76,11 +92,11 @@ function Item({ children, label, advice, error }) {
 }
 
 function useForm(
-  initialRecord,
-  { htmlToJs },
-  { isValid, errorMessage },
-  onSubmit,
-) {
+  initialRecord: any,
+  { htmlToJs }: any,
+  { isValid, errorMessage }: any,
+  onSubmit: any,
+): any {
   // Initialization -------------------------------------------------------
   // State ------------------------------------------------------------------
   const [record, setRecord] = useState(initialRecord);
@@ -90,7 +106,7 @@ function useForm(
     Object.keys(isValid).reduce((acc, key) => ({ ...acc, [key]: null }), {}),
   );
 
-  const isValidRecord = (record) => {
+  const isValidRecord = (record: any) => {
     let valid = true;
     // go through each key (attribute name) of isValid (the object template)
     Object.keys(isValid).forEach((key) => {

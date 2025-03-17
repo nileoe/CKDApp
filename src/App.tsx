@@ -4,6 +4,7 @@ import Layout from "./layouts/Layout";
 import Register from "./screens/Register";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import CalculatorScreen from "./screens/CalculatorScreen";
+import PastResultsScreen from "./screens/PastResultsScreen";
 
 function App() {
   //return <TestComponent />;
@@ -21,6 +22,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/past_results" element={<PastResultsScreen />} />
         </Routes>
       </Layout>
     </BrowserRouter>

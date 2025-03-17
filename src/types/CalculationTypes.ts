@@ -1,17 +1,7 @@
-export type User = {
-  $id: number;
-  username: string;
-  userType: "patient" | "clinitian";
-};
-
-type CreatinineLevel = {
-  id: number;
-  level: number;
-};
-
-export const creatinineUnits = ["mcl", "mgdl"] as const;
-export const userSexes = ["female", "male", "other"] as const;
-export const ckdStages = ["early", "middle", "advanced"] as const;
+export const creatinineUnits = ["micromol/l", "mg/dl"] as const;
+//export const userSexes = ["Female", "Male", "Other"] as const;
+export const userSexes = ["Female", "Male"] as const;
+export const ckdStages = ["Early", "Middle", "Advanced"] as const;
 export const ethnicities = [
   "Indian",
   "Pakistani",
@@ -42,22 +32,11 @@ type CalculationResult = {
   CKDStage: CKDStage;
 };
 
-// Example types
-//type CreatinineUnit = {
-//  id: 1 | 2;
-//  unitname: CreatinineUnitName;
-//};
-//
-//type CKDStage = {
-//  id: 1 | 2 | 3;
-//  stageName: CKDStageName;
-//};
-
 export type CalculationData = {
   userId: number;
   userAge: number;
   creatinineUnit: CreatinineUnit;
-  creatinineLevel: CreatinineLevel;
+  creatinineLevel: number;
   userEthnicity: Ethnicity;
   userSex: UserSex;
   calculationResult: CalculationResult;
