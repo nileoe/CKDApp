@@ -7,8 +7,9 @@ import {
   CalculationData,
   creatinineUnits,
   userSexes,
-  ckdStages,
   ethnicities,
+  eGFRStage,
+  eGFRStages,
 } from "../../types/CalculationTypes";
 
 //
@@ -37,10 +38,12 @@ const CalculatorForm = () => {
   }, []);
 
   // State -------------
-  const [egfrResultString, setEgfrResultString] =
-    useState<string>("Enter calculation");
-  const [ckdStageString, setCkdStageString] =
-    useState<string>("Enter calculation");
+  const [egfrResultString, setEgfrResultString] = useState<string>(
+    "Submit calculation to see your result",
+  );
+  const [ckdStageString, setCkdStageString] = useState<string>(
+    "Submit calculation to see your result",
+  );
   const [formData, setFormData] = useState({
     creatinineLevel: 0,
     userAge: 18,
@@ -49,21 +52,60 @@ const CalculatorForm = () => {
     creatinineUnit: "",
   });
   // Handlers ----------
+  const getEgfrValue = (
+    isBlack: boolean,
+    isFemale: boolean,
+    creatinineLevel: number,
+    age: number,
+  ): number => {
+    const blackModifier: number = isBlack ? 1.21 : 1;
+    const femaleModifier: number = isFemale ? 0.742 : 1;
+    const eGFRValue =
+      186 *
+      Math.pow(creatinineLevel / 88.4, -1.154) *
+      Math.pow(age, -0.203) *
+      femaleModifier *
+      blackModifier;
+    return eGFRValue;
+  };
+
+  const getCKDStage = (eGFRValue: number): eGFRStage => {
+    let stage: eGFRStage;
+    if (eGFRValue > 90) {
+      stage = eGFRStages[0];
+    } else if (eGFRValue >= 60) {
+      stage = eGFRStages[1];
+    } else if (eGFRValue >= 45) {
+      stage = eGFRStages[2];
+    } else if (eGFRValue >= 30) {
+      stage = eGFRStages[3];
+    } else if (eGFRValue >= 15) {
+      stage = eGFRStages[4];
+    } else {
+      stage = eGFRStages[5];
+    }
+    return stage;
+  };
+
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("TODO handling calculation with form data:");
-    console.log(formData);
-    setEgfrResultString(formData.creatinineLevel.toString());
-    setCkdStageString((formData.creatinineLevel * 3).toString());
+    const isBlack: boolean = ethnicities.isBlack(formData.userEthnicity);
+    const isFemale: boolean = formData.userSex.toLowerCase() === "female";
+    const result = getEgfrValue(
+      isBlack,
+      isFemale,
+      formData.creatinineLevel,
+      formData.userAge,
+    );
+    const ckdStage = getCKDStage(result);
+    setEgfrResultString(`${Math.round(result).toString()} ml/min/1.73m2`);
+    setCkdStageString(ckdStage.description);
   };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    console.log(
-      `input change: set form data from ${name} to new value ${value}`,
-    );
-    //console.log(`input change: set form data from ${formData[name]} to new value ${value}`)
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -125,7 +167,7 @@ const CalculatorForm = () => {
               <option value="" disabled>
                 Select ethnicity
               </option>
-              {ethnicities.map((ethnicity) => (
+              {ethnicities.list.map((ethnicity) => (
                 <option key={ethnicity} value={ethnicity}>
                   {ethnicity}
                 </option>
@@ -175,26 +217,3 @@ const CalculatorForm = () => {
   );
 };
 export default CalculatorForm;
-
-//  return (
-//    <Form onSubmit={handleCalculate}>
-//      <Form.Item label="Creatine Level" error={errors.ContributionCompletionID}>
-//        <select
-//          name="ContributionCompletionID"
-//          value={displayedContribution.ContributionCompletionID}
-//          onChange={handleChange}
-//        >
-//          {isNewContribution && (
-//            <option key="0" value="0" disabled selected>
-//              None Selected
-//            </option>
-//          )}
-//          {completion.list.map((completion) => (
-//            <option key={completion.CompletionID} value={completion.CompletionID}>
-//              {completion.CompletionName}
-//            </option>
-//          ))}
-//        </select>
-//    </Form>
-//  );
-//};

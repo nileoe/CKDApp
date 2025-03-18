@@ -2,27 +2,31 @@ export const creatinineUnits = ["micromol/l", "mg/dl"] as const;
 //export const userSexes = ["Female", "Male", "Other"] as const;
 export const userSexes = ["Female", "Male"] as const;
 export const ckdStages = ["Early", "Middle", "Advanced"] as const;
-export const ethnicities = [
-  "Indian",
-  "Pakistani",
-  "Bangladeshi",
-  "Chinese",
-  "Any other Asian background",
-  "Caribbean",
-  "African",
-  "Any other Black background",
-  "White and Black Caribbean",
-  "White and Black African",
-  "White and Asian",
-  "Any other Mixed background",
-  "English, Welsh, Scottish, Northern Irish or British",
-  "Irish",
-  "Gypsy or Irish Traveller",
-  "Roma",
-  "Any other White background",
-  "Arab",
-  "Any other ethnic group",
+const ethnicityList = [
+  "White - British",
+  "White - Irish",
+  "White - Any other White background",
+  "Mixed - White and Black Caribbean",
+  "Mixed - White and Black African",
+  "Mixed - White and Asian",
+  "Mixed - Any other mixed background",
+  "Asian or Asian British - Indian",
+  "Asian or Asian British - Pakistani",
+  "Asian or Asian British - Bangladeshi",
+  "Asian or Asian British - Any other Asian background",
+  "Black or Black British - Caribbean",
+  "Black or Black British - African",
+  "Black or Black British - Any other Black background",
+  "Other Ethnic Groups - Chinese",
 ] as const;
+
+export const ethnicities = {
+  list: ethnicityList,
+  isBlack: (
+    ethnicity: string,
+  ): boolean => ethnicity.toLowerCase().includes("black"), /// TODO
+};
+
 type CreatinineUnit = (typeof creatinineUnits)[number];
 type UserSex = (typeof userSexes)[number];
 type CKDStage = (typeof ckdStages)[number];
@@ -41,3 +45,54 @@ export type CalculationData = {
   userSex: UserSex;
   calculationResult: CalculationResult;
 };
+
+export type eGFRStage = {
+  name: string;
+  description: string;
+};
+export const eGFRStages: eGFRStage[] = [
+  {
+    name: "1",
+    description:
+      "Normal kidney function but urine findings or structural abnormalities or genetic trait point to kidney disease",
+  },
+  {
+    name: "2",
+    description:
+      "Mildly reduced kidney function, and other findings (as for stage 1) point to kidney disease",
+  },
+  {
+    name: "3A",
+    description: "Moderately reduced kidney function",
+  },
+  {
+    name: "3B",
+    description: "Moderately reduced kidney function",
+  },
+  {
+    name: "4",
+    description: "Severely reduced kidney function",
+  },
+  {
+    name: "5",
+    description: "Very severe, or end stage kidney failure",
+  },
+];
+
+//type eGFRName = (typeof eGFRStageNames)[number];
+//type eGFRDescription = (typeof eGFRStageDescriptions)[number];
+//
+//export type eGFRStage = {
+//  name: eGFRName;
+//  description: eGFRDescription;
+//};
+//export const eGFRStages = {
+//  nameList: eGFRStageNames,
+//  //descriptionList: eGFRStageDescriptions,
+//  getDescription: (stage: eGFRStageName): string => {
+//    const index = eGFRStageNames.indexOf(stage);
+//    return index >= 0
+//      ? eGFRStageDescription[index]
+//      : "eGFR types: Invalid stage name";
+//  },
+//};
