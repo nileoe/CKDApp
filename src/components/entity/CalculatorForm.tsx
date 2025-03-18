@@ -13,12 +13,6 @@ import {
   isEthnicityBlack,
 } from "../../types/CalculationTypes";
 
-//
-//const user: User = {
-//  $id: 123,
-//  username: 'kingCharles',
-//  userType: "patient",
-//}
 const CalculatorForm = () => {
   // Initialization -----------
   const [loggedInUser, setLoggedInUser] = useState<null | any>(null); // TODO any
@@ -116,92 +110,90 @@ const CalculatorForm = () => {
   // View -----------
   return (
     <div className="mainContainer">
-      <div>
-        <form onSubmit={handleCalculate}>
-          <div className="formRowGroupItem">
-            <div className="formItem">
-              <label htmlFor="creatinineLevel">Creatinine Level</label>
-              <input
-                type="number"
-                id="creatinineLevel"
-                name="creatinineLevel"
-                value={formData.creatinineLevel}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div>
-              <select
-                id="creatinineUnit"
-                name="creatinineUnit"
-                value={formData.creatinineUnit}
-                onChange={handleInputChange}
-                required
-              >
-                {creatinineUnits.map((unit) => (
-                  <option key={unit} value={unit}>
-                    {unit}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+      <form onSubmit={handleCalculate}>
+        <div className="formRowGroupItem">
           <div className="formItem">
-            <label htmlFor="userAge">Age</label>
+            <label htmlFor="creatinineLevel">Creatinine Level</label>
             <input
               type="number"
-              id="userAge"
-              name="userAge"
-              value={formData.userAge}
+              id="creatinineLevel"
+              name="creatinineLevel"
+              value={formData.creatinineLevel}
               onChange={handleInputChange}
               required
             />
           </div>
-          <div className="formItem">
-            <label htmlFor="userEthnicity">Ethnicity</label>
-            <select
-              id="userEthnicity"
-              name="userEthnicity"
-              value={formData.userEthnicity}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="" disabled>
-                Select ethnicity
-              </option>
-              {ethnicities.map((ethnicity) => (
-                <option key={ethnicity} value={ethnicity}>
-                  {ethnicity}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="formItem">
-            <label htmlFor="userSex">Sex assigned at birth</label>
-            <select
-              id="userSex"
-              name="userSex"
-              value={formData.userSex}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="" disabled>
-                Select
-              </option>
-              {userSexes.map((userSex) => (
-                <option key={userSex} value={userSex}>
-                  {userSex}
-                </option>
-              ))}
-            </select>
-          </div>
           <div>
-            <button className="submitButton" type="submit">
-              Calculate
-            </button>
+            <select
+              id="creatinineUnit"
+              name="creatinineUnit"
+              value={formData.creatinineUnit}
+              onChange={handleInputChange}
+              required
+            >
+              {creatinineUnits.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
+                </option>
+              ))}
+            </select>
           </div>
-        </form>
-      </div>
+        </div>
+        <div className="formItem">
+          <label htmlFor="userAge">Age</label>
+          <input
+            type="number"
+            id="userAge"
+            name="userAge"
+            value={formData.userAge}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="formItem">
+          <label htmlFor="userEthnicity">Ethnicity</label>
+          <select
+            id="userEthnicity"
+            name="userEthnicity"
+            value={formData.userEthnicity}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="" disabled>
+              Select ethnicity
+            </option>
+            {ethnicities.map((ethnicity) => (
+              <option key={ethnicity} value={ethnicity}>
+                {ethnicity}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="formItem">
+          <label htmlFor="userSex">Sex assigned at birth</label>
+          <select
+            id="userSex"
+            name="userSex"
+            value={formData.userSex}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="" disabled>
+              Select
+            </option>
+            {userSexes.map((userSex) => (
+              <option key={userSex} value={userSex}>
+                {userSex}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <button className="submitButton" type="submit">
+            Calculate
+          </button>
+        </div>
+      </form>
 
       <div>
         <h4 className="resultTitle">Your results</h4>
