@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { login } from "../appwriteConfig";
+import { login } from "../../backend/userActions";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";

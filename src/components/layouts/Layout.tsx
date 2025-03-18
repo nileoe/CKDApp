@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { User } from "../types.js";
+import Navbar from "./Navbar.js";
+import Footer from "./Footer.js";
+import { User } from "../../types.js";
 //import { useAuth } from "../auth/useAuth";
 import "./Layout.scss";
 

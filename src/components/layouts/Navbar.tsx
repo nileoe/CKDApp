@@ -6,7 +6,7 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.scss";
-import { logout } from "../appwriteConfig";
+import { logout } from "../../backend/userActions";
 //import { useAuth } from '../auth/useAuth';
 //
 function Navbar() {

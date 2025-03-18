@@ -7,7 +7,7 @@ const CalculatorScreen = () => {
   // View -----------
   return (
     <>
-      <h1>CalculatorScreen Page</h1>
+      <h3>CalculatorScreen Page</h3>
       <CalculatorForm />
     </>
   );

@@ -1,4 +1,4 @@
-import { logout } from "../appwriteConfig";
+import { logout } from "../../backend/appwriteConfig";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {

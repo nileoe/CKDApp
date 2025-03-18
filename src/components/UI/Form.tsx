@@ -41,7 +41,7 @@
          backend using the provided onSubmit method.
 */
 
-import { CalculationData } from "../types";
+import { CalculationData } from "../../types";
 import "./Form.scss";
 import { useState } from "react";
 
