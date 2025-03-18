@@ -2,7 +2,7 @@ export const creatinineUnits = ["micromol/l", "mg/dl"] as const;
 //export const userSexes = ["Female", "Male", "Other"] as const;
 export const userSexes = ["Female", "Male"] as const;
 export const ckdStages = ["Early", "Middle", "Advanced"] as const;
-const ethnicityList = [
+export const ethnicities = [
   "White - British",
   "White - Irish",
   "White - Any other White background",
@@ -20,12 +20,8 @@ const ethnicityList = [
   "Other Ethnic Groups - Chinese",
 ] as const;
 
-export const ethnicities = {
-  list: ethnicityList,
-  isBlack: (
-    ethnicity: string,
-  ): boolean => ethnicity.toLowerCase().includes("black"), /// TODO
-};
+export const isEthnicityBlack = (ethnicity: string): boolean =>
+  ethnicity.toLowerCase().includes("black"); // very advanced and conscious of the complex cultural landscapes of multiple black ethnicities i know i know
 
 type CreatinineUnit = (typeof creatinineUnits)[number];
 type UserSex = (typeof userSexes)[number];

@@ -10,6 +10,7 @@ import {
   ethnicities,
   eGFRStage,
   eGFRStages,
+  isEthnicityBlack,
 } from "../../types/CalculationTypes";
 
 //
@@ -45,11 +46,11 @@ const CalculatorForm = () => {
     "Submit calculation to see your result",
   );
   const [formData, setFormData] = useState({
-    creatinineLevel: 0,
+    creatinineLevel: 90,
     userAge: 18,
     userEthnicity: "",
     userSex: "",
-    creatinineUnit: "",
+    creatinineUnit: creatinineUnits[0],
   });
   // Handlers ----------
   const getEgfrValue = (
@@ -89,7 +90,8 @@ const CalculatorForm = () => {
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
-    const isBlack: boolean = ethnicities.isBlack(formData.userEthnicity);
+    console.log(formData.creatinineUnit);
+    const isBlack: boolean = isEthnicityBlack(formData.userEthnicity);
     const isFemale: boolean = formData.userSex.toLowerCase() === "female";
     const result = getEgfrValue(
       isBlack,
@@ -120,7 +122,7 @@ const CalculatorForm = () => {
             <div className="formItem">
               <label htmlFor="creatinineLevel">Creatinine Level</label>
               <input
-                type="text"
+                type="number"
                 id="creatinineLevel"
                 name="creatinineLevel"
                 value={formData.creatinineLevel}
@@ -167,7 +169,7 @@ const CalculatorForm = () => {
               <option value="" disabled>
                 Select ethnicity
               </option>
-              {ethnicities.list.map((ethnicity) => (
+              {ethnicities.map((ethnicity) => (
                 <option key={ethnicity} value={ethnicity}>
                   {ethnicity}
                 </option>
