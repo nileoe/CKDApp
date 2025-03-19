@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./screens/Login";
-import Layout from "./layouts/Layout";
-import Register from "./screens/Register";
+import Login from "./components/screens/Login";
+import Layout from "./components/layouts/Layout";
+import Register from "./components/screens/Register";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import CalculatorScreen from "./screens/CalculatorScreen";
+import CalculatorScreen from "./components/screens/CalculatorScreen";
+import PastResultsScreen from "./components/screens/PastResultsScreen";
 
 function App() {
   //return <TestComponent />;
@@ -21,6 +22,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/past_results" element={<PastResultsScreen />} />
         </Routes>
       </Layout>
     </BrowserRouter>

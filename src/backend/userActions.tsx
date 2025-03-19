@@ -1,12 +1,5 @@
-import { Account, Client, ID } from "appwrite";
-
-export const API_ENDPOINT = "https://cloud.appwrite.io/v1";
-export const PROJECT_ID = "67d0926f00273e046380";
-
-const client = new Client();
-client.setEndpoint(API_ENDPOINT).setProject(PROJECT_ID);
-
-export const account = new Account(client);
+import { ID } from "appwrite";
+import { account } from "./appwriteConfig";
 
 export const getCurrentUser = async () => {
   try {
@@ -36,9 +29,7 @@ export const logout = async () => {
 export const createAccount = async (
   name: string,
   email: string,
-  password: string
+  password: string,
 ) => {
   return await account.create(ID.unique(), email, password, name);
 };
-
-export default client;

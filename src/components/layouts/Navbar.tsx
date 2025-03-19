@@ -6,7 +6,7 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.scss";
-import { logout } from "../appwriteConfig";
+import { logout } from "../../backend/userActions";
 //import { useAuth } from '../auth/useAuth';
 //
 function Navbar() {
@@ -24,9 +24,6 @@ function Navbar() {
         </NavLink>
         <NavLink to="/consultation_notes" className="navItem leftItem">
           Consultation Notes
-        </NavLink>
-        <NavLink to="/CKD_stages" className="navItem leftItem">
-          CKD Stages
         </NavLink>
       </div>
 

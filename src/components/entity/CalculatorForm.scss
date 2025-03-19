@@ -1,0 +1,64 @@
+div.formContainer {
+  // outline: 1px solid red;
+}
+div.formContent {
+  // outline: 1px solid purple;
+  // display: flex;
+  // width: 80%;
+  // justify-content: space-between;
+  // margin: auto;
+}
+div.formColumn {
+  // outline: 1px solid green;
+  // display: flex;
+  // flex-direction: column;
+}
+div.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  // outline: 1px solid blue;
+  label {
+    font-weight: 500;
+  }
+  textarea {
+    resize: none;
+  }
+}
+p.nextSteps {
+  font-style: italic;
+}
+.formBox {
+  border-radius: 10px;
+  padding: 5px;
+  height: 50px;
+  background-color: white;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+  grid-auto-rows: 4rem; /* Each row is 4 units high */
+  gap: 2rem; /* Adds spacing between grid items */
+  padding: 10px;
+  width: 80%;
+  margin: 10px auto;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column; /* Labels above the inputs */
+}
+
+button.submitButton {
+  background-color: #adceb8;
+  padding: 10px;
+  border-radius: 15px;
+  // margin: 10px 0px 10px 80px;
+  margin: 10px 0px;
+
+  width: 30%;
+  color: white;
+  justify-self: right;
+  // border: 0.5px solid black;
+}
