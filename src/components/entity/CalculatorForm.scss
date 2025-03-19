@@ -19,6 +19,7 @@ div.formItem {
   gap: 10px;
   // outline: 1px solid blue;
   label {
+    font-weight: 500;
   }
   textarea {
     resize: none;
@@ -31,6 +32,7 @@ p.nextSteps {
   border-radius: 10px;
   padding: 5px;
   height: 50px;
+  background-color: white;
 }
 
 .gridContainer {
