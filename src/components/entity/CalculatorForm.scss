@@ -1,26 +1,53 @@
-div.formRowGroupItem {
-  display: flex;
-  gap: 10px;
+div.formContainer {
+  outline: 1px solid red;
 }
-
-div.formItem {
+div.formContent {
+  outline: 1px solid purple;
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  margin: auto;
+}
+div.formColumn {
+  outline: 1px solid green;
   display: flex;
   flex-direction: column;
 }
-
-div.mainContainer {
+div.formItem {
   display: flex;
-  gap: 20px;
-
-  > div {
-    padding: 10px;
-    outline: 1px solid red;
-  }
-  select {
-    padding: 5px;
-    background-color: white;
+  flex-direction: column;
+  outline: 1px solid blue;
+  textarea {
+    resize: none;
   }
 }
+.formBox {
+  border-radius: 10px;
+  padding: 7px;
+}
+// div.formRowGroupItem {
+//   display: flex;
+//   gap: 10px;
+// }
+//
+// div.formItem {
+//   display: flex;
+//   flex-direction: column;
+// }
+//
+// div.mainContainer {
+//   display: flex;
+//   gap: 20px;
+//
+//   > div {
+//     padding: 10px;
+//     outline: 1px solid red;
+//   }
+//   select {
+//     padding: 5px;
+//     background-color: white;
+//   }
+// }
 
 button.submitButton {
   background-color: #adceb8;

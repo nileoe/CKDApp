@@ -1,3 +1,4 @@
+import "./CalculatorScreen.scss";
 import CalculatorForm from "../entity/CalculatorForm";
 
 const CalculatorScreen = () => {
@@ -7,7 +8,6 @@ const CalculatorScreen = () => {
   // View -----------
   return (
     <>
-      <h3>CalculatorScreen Page</h3>
       <CalculatorForm />
     </>
   );
