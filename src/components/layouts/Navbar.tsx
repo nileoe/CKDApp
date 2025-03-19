@@ -25,9 +25,6 @@ function Navbar() {
         <NavLink to="/consultation_notes" className="navItem leftItem">
           Consultation Notes
         </NavLink>
-        <NavLink to="/CKD_stages" className="navItem leftItem">
-          CKD Stages
-        </NavLink>
       </div>
 
       <div className="navArea">
