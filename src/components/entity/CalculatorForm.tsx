@@ -36,7 +36,10 @@ const CalculatorForm = () => {
   const [egfrResultString, setEgfrResultString] = useState<string>(
     "Submit calculation to see your result",
   );
-  const [ckdStageString, setCkdStageString] = useState<string>(
+  const [ckdDescription, setCkdDescription] = useState<string>(
+    "Submit calculation to see your result",
+  );
+  const [ckdStageString, setCkdStage] = useState<string>(
     "Submit calculation to see your result",
   );
   const [formData, setFormData] = useState({
@@ -84,7 +87,6 @@ const CalculatorForm = () => {
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData.creatinineUnit);
     const isBlack: boolean = isEthnicityBlack(formData.userEthnicity);
     const isFemale: boolean = formData.userSex.toLowerCase() === "female";
     const result = getEgfrValue(
@@ -95,7 +97,8 @@ const CalculatorForm = () => {
     );
     const ckdStage = getCKDStage(result);
     setEgfrResultString(`${Math.round(result).toString()} ml/min/1.73m2`);
-    setCkdStageString(ckdStage.description);
+    setCkdDescription(ckdStage.description);
+    setCkdStage(ckdStage.name);
   };
 
   const handleInputChange = (
@@ -127,6 +130,23 @@ const CalculatorForm = () => {
               />
             </div>
             <div className="formItem">
+              <label htmlFor="creatinineUnit">Unit</label>
+              <select
+                id="creatinineUnit"
+                name="creatinineUnit"
+                value={formData.creatinineUnit}
+                onChange={handleInputChange}
+                className="formBox"
+                required
+              >
+                {creatinineUnits.map((unit) => (
+                  <option key={unit} value={unit}>
+                    {unit}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="formItem">
               <label htmlFor="userAge">Age</label>
               <input
                 type="number"
@@ -137,6 +157,10 @@ const CalculatorForm = () => {
                 className="formBox"
                 required
               />
+            </div>
+            <div className="formItem">
+              <label>eGFR</label>
+              <textarea className="formBox" readOnly value={egfrResultString} />
             </div>
             <div className="formItem">
               <label htmlFor="userEthnicity">Ethnicity</label>
@@ -159,6 +183,10 @@ const CalculatorForm = () => {
               </select>
             </div>
             <div className="formItem">
+              <label>CKD Stage</label>
+              <textarea className="formBox" readOnly value={ckdStageString} />
+            </div>
+            <div className="formItem">
               <label htmlFor="userSex">Sex assigned at birth</label>
               <select
                 id="userSex"
@@ -179,39 +207,8 @@ const CalculatorForm = () => {
               </select>
             </div>
             <div className="formItem">
-              <label htmlFor="creatinineUnit">Creatinine Unit</label>
-              <select
-                id="creatinineUnit"
-                name="creatinineUnit"
-                value={formData.creatinineUnit}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              >
-                {creatinineUnits.map((unit) => (
-                  <option key={unit} value={unit}>
-                    {unit}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="formItem">
-              <label>eGFR</label>
-              <textarea className="formBox" readOnly>
-                {egfrResultString}
-              </textarea>
-            </div>
-            <div className="formItem">
-              <label>CKD Stage</label>
-              <textarea className="formBox" readOnly>
-                {ckdStageString}
-              </textarea>
-            </div>
-            <div className="formItem">
               <label>Description</label>
-              <textarea className="formBox" readOnly>
-                {ckdStageString}
-              </textarea>
+              <textarea className="formBox" readOnly value={ckdDescription} />
             </div>
             <button className="submitButton" type="submit">
               Calculate
@@ -224,136 +221,5 @@ const CalculatorForm = () => {
       </div>
     </>
   );
-  //return (
-  //  <>
-  //    <div className="formContainer">
-  //      <form onSubmit={handleCalculate}>
-  //        <div className="formContent">
-  //          <div className="formColumn">
-  //            <div className="formItem">
-  //              <label htmlFor="creatinineLevel">Creatinine Level</label>
-  //              <input
-  //                type="number"
-  //                id="creatinineLevel"
-  //                name="creatinineLevel"
-  //                value={formData.creatinineLevel}
-  //                onChange={handleInputChange}
-  //                className="formBox"
-  //                required
-  //              />
-  //            </div>
-  //            <div className="formItem">
-  //              <label htmlFor="userAge">Age</label>
-  //              <input
-  //                type="number"
-  //                id="userAge"
-  //                name="userAge"
-  //                value={formData.userAge}
-  //                onChange={handleInputChange}
-  //                className="formBox"
-  //                required
-  //              />
-  //            </div>
-  //            <div className="formItem">
-  //              <label htmlFor="userEthnicity">Ethnicity</label>
-  //              <select
-  //                id="userEthnicity"
-  //                name="userEthnicity"
-  //                value={formData.userEthnicity}
-  //                onChange={handleInputChange}
-  //                className="formBox"
-  //                required
-  //              >
-  //                <option value="" disabled>
-  //                  Select ethnicity
-  //                </option>
-  //                {ethnicities.map((ethnicity) => (
-  //                  <option key={ethnicity} value={ethnicity}>
-  //                    {ethnicity}
-  //                  </option>
-  //                ))}
-  //              </select>
-  //            </div>
-  //            <div className="formItem">
-  //              <label htmlFor="userSex">Sex assigned at birth</label>
-  //              <select
-  //                id="userSex"
-  //                name="userSex"
-  //                value={formData.userSex}
-  //                onChange={handleInputChange}
-  //                className="formBox"
-  //                required
-  //              >
-  //                <option value="" disabled>
-  //                  Select
-  //                </option>
-  //                {userSexes.map((userSex) => (
-  //                  <option key={userSex} value={userSex}>
-  //                    {userSex}
-  //                  </option>
-  //                ))}
-  //              </select>
-  //            </div>
-  //
-  //            <div>
-  //              <button className="submitButton" type="submit">
-  //                Calculate
-  //              </button>
-  //            </div>
-  //          </div>
-  //
-  //          <div className="formColumn">
-  //            <div>
-  //              <select
-  //                id="creatinineUnit"
-  //                name="creatinineUnit"
-  //                value={formData.creatinineUnit}
-  //                onChange={handleInputChange}
-  //                className="formBox"
-  //                required
-  //              >
-  //                {creatinineUnits.map((unit) => (
-  //                  <option key={unit} value={unit}>
-  //                    {unit}
-  //                  </option>
-  //                ))}
-  //              </select>
-  //            </div>
-  //            <div className="formItem">
-  //              <label>eGFR</label>
-  //              <textarea className="formBox" name="" id="" readOnly>
-  //                {egfrResultString}
-  //              </textarea>
-  //            </div>
-  //            <div className="formItem">
-  //              <label>CKD Stage</label>
-  //              <textarea className="formBox" name="" id="" readOnly>
-  //                {ckdStageString}
-  //              </textarea>
-  //            </div>
-  //            <div className="formItem">
-  //              <label>Description</label>
-  //              <textarea className="formBox" name="" id="" readOnly>
-  //                {ckdStageString}
-  //              </textarea>
-  //            </div>
-  //            <p>
-  //              CKD Stage info and steps <FontAwesomeIcon icon={faArrowRight} />
-  //            </p>
-  //          </div>
-  //        </div>
-  //      </form>
-  //
-  //      <div>
-  //        <div className="resultBox">
-  //          <p className="resultLabel">eGFR</p>
-  //          <p className="result">{egfrResultString}</p>
-  //          <p className="resultLabel">CKD Stage</p>
-  //          <p className="result">{ckdStageString}</p>
-  //        </div>
-  //      </div>
-  //    </div>
-  //  </>
-  //);
 };
 export default CalculatorForm;
