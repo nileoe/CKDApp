@@ -44,6 +44,49 @@ p.nextSteps {
   padding: 10px;
   width: 80%;
   margin: 10px auto;
+
+  /* General button styling */
+  button#submitButton {
+    padding: 10px;
+    border-radius: 15px;
+    margin: 10px 0px;
+    width: 30%;
+    color: white;
+    justify-self: right;
+    // cursor: pointer; /* Shows pointer cursor for enabled buttons */
+    transition: background-color 0.3s ease; /* Smooth transition for background-color */
+  }
+
+  /* Enabled state styling */
+  button.buttonEnabled {
+    cursor: pointer; /* Shows pointer cursor for enabled buttons */
+    background-color: #adceb8; /* Light green background for enabled state */
+  }
+
+  /* Disabled state styling */
+  button.buttonDisabled,
+  button:disabled {
+    cursor: not-allowed; /* Shows pointer cursor for enabled buttons */
+    background-color: #bbb; /* Gray background for disabled state */
+  }
+
+  // button#submitButton {
+  //   padding: 10px;
+  //   border-radius: 15px;
+  //   // margin: 10px 0px 10px 80px;
+  //   margin: 10px 0px;
+  //
+  //   width: 30%;
+  //   color: white;
+  //   justify-self: right;
+  //   // border: 0.5px solid black;
+  // }
+  // button.buttonEnabled {
+  //   background-color: #adceb8;
+  // }
+  // button.buttonDisabled {
+  //   background-color: #ccc;
+  // }
 }
 
 .formItem {
@@ -51,15 +94,5 @@ p.nextSteps {
   flex-direction: column; /* Labels above the inputs */
 }
 
-button.submitButton {
-  background-color: #adceb8;
-  padding: 10px;
-  border-radius: 15px;
-  // margin: 10px 0px 10px 80px;
-  margin: 10px 0px;
-
-  width: 30%;
-  color: white;
-  justify-self: right;
-  // border: 0.5px solid black;
+button#submitButton {
 }

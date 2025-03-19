@@ -84,7 +84,18 @@ const CalculatorForm = () => {
     }
     return stage;
   };
-
+  const allFormFieldsAreFilled = () => {
+    const ageDropdown: HTMLSelectElement = document.getElementById(
+      "userAge",
+    ) as HTMLSelectElement;
+    const ethnicityDropdown: HTMLSelectElement = document.getElementById(
+      "userEthnicity",
+    ) as HTMLSelectElement;
+    const sexDropdown: HTMLSelectElement = document.getElementById(
+      "userSex",
+    ) as HTMLSelectElement;
+    return ageDropdown.value && ethnicityDropdown.value && sexDropdown.value;
+  };
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
     const isBlack: boolean = isEthnicityBlack(formData.userEthnicity);
@@ -109,6 +120,15 @@ const CalculatorForm = () => {
       ...prev,
       [name]: value,
     }));
+    if (allFormFieldsAreFilled()) {
+      console.log("all form fields now fillled");
+      const calculateButton: HTMLElement | null =
+        document.getElementById("submitButton");
+      if (calculateButton) {
+        calculateButton?.classList.add("buttonEnabled");
+        calculateButton?.classList.remove("buttonDisabled");
+      }
+    }
   };
   // View -----------
   // TODO is mainContainer useful (styled) if not remove
@@ -173,7 +193,7 @@ const CalculatorForm = () => {
                 required
               >
                 <option value="" disabled>
-                  Select ethnicity
+                  Select
                 </option>
                 {ethnicities.map((ethnicity) => (
                   <option key={ethnicity} value={ethnicity}>
@@ -210,7 +230,7 @@ const CalculatorForm = () => {
               <label>Description</label>
               <textarea className="formBox" readOnly value={ckdDescription} />
             </div>
-            <button className="submitButton" type="submit">
+            <button id="submitButton" type="submit" className="buttonDisabled">
               Calculate
             </button>
             <p className="nextSteps">
