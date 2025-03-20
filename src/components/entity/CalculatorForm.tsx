@@ -22,14 +22,6 @@ const CalculatorForm = () => {
       setLoggedInUser(await getCurrentUser());
     };
     fetchUser();
-
-    if (loggedInUser) {
-      console.log(
-        `logged in user with name ${loggedInUser?.name} and id ${loggedInUser?.$id}`,
-      );
-    } else {
-      console.log("no logged in user found.");
-    }
   }, []);
 
   // State -------------
@@ -121,7 +113,6 @@ const CalculatorForm = () => {
       [name]: value,
     }));
     if (allFormFieldsAreFilled()) {
-      console.log("all form fields now fillled");
       const calculateButton: HTMLElement | null =
         document.getElementById("submitButton");
       if (calculateButton) {
@@ -129,117 +120,123 @@ const CalculatorForm = () => {
         calculateButton?.classList.remove("buttonDisabled");
       }
     }
+    // TODO remove
+    if (loggedInUser) {
+      console.log(
+        `logged in user with name ${loggedInUser?.name} and id ${loggedInUser?.$id}:`,
+      );
+      console.log(loggedInUser);
+    } else {
+      console.log("No user currently logged in");
+    }
   };
   // View -----------
-  // TODO is mainContainer useful (styled) if not remove
   return (
-    <>
-      <div className="formContainer">
-        <form onSubmit={handleCalculate}>
-          <div className="gridContainer">
-            <div className="formItem">
-              <label htmlFor="creatinineLevel">Creatinine Level</label>
-              <input
-                type="number"
-                id="creatinineLevel"
-                name="creatinineLevel"
-                value={formData.creatinineLevel}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              />
-            </div>
-            <div className="formItem">
-              <label htmlFor="creatinineUnit">Unit</label>
-              <select
-                id="creatinineUnit"
-                name="creatinineUnit"
-                value={formData.creatinineUnit}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              >
-                {creatinineUnits.map((unit) => (
-                  <option key={unit} value={unit}>
-                    {unit}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="formItem">
-              <label htmlFor="userAge">Age</label>
-              <input
-                type="number"
-                id="userAge"
-                name="userAge"
-                value={formData.userAge}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              />
-            </div>
-            <div className="formItem">
-              <label>eGFR</label>
-              <textarea className="formBox" readOnly value={egfrResultString} />
-            </div>
-            <div className="formItem">
-              <label htmlFor="userEthnicity">Ethnicity</label>
-              <select
-                id="userEthnicity"
-                name="userEthnicity"
-                value={formData.userEthnicity}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              >
-                <option value="" disabled>
-                  Select
-                </option>
-                {ethnicities.map((ethnicity) => (
-                  <option key={ethnicity} value={ethnicity}>
-                    {ethnicity}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="formItem">
-              <label>CKD Stage</label>
-              <textarea className="formBox" readOnly value={ckdStageString} />
-            </div>
-            <div className="formItem">
-              <label htmlFor="userSex">Sex assigned at birth</label>
-              <select
-                id="userSex"
-                name="userSex"
-                value={formData.userSex}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              >
-                <option value="" disabled>
-                  Select
-                </option>
-                {userSexes.map((userSex) => (
-                  <option key={userSex} value={userSex}>
-                    {userSex}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="formItem">
-              <label>Description</label>
-              <textarea className="formBox" readOnly value={ckdDescription} />
-            </div>
-            <button id="submitButton" type="submit" className="buttonDisabled">
-              Calculate
-            </button>
-            <p className="nextSteps">
-              CKD Stage info and steps <FontAwesomeIcon icon={faArrowRight} />
-            </p>
+    <div className="formContainer">
+      <form onSubmit={handleCalculate}>
+        <div className="gridContainer">
+          <div className="formItem">
+            <label htmlFor="creatinineLevel">Creatinine Level</label>
+            <input
+              type="number"
+              id="creatinineLevel"
+              name="creatinineLevel"
+              value={formData.creatinineLevel}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            />
           </div>
-        </form>
-      </div>
-    </>
+          <div className="formItem">
+            <label htmlFor="creatinineUnit">Unit</label>
+            <select
+              id="creatinineUnit"
+              name="creatinineUnit"
+              value={formData.creatinineUnit}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            >
+              {creatinineUnits.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="formItem">
+            <label htmlFor="userAge">Age</label>
+            <input
+              type="number"
+              id="userAge"
+              name="userAge"
+              value={formData.userAge}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            />
+          </div>
+          <div className="formItem">
+            <label>eGFR</label>
+            <textarea className="formBox" readOnly value={egfrResultString} />
+          </div>
+          <div className="formItem">
+            <label htmlFor="userEthnicity">Ethnicity</label>
+            <select
+              id="userEthnicity"
+              name="userEthnicity"
+              value={formData.userEthnicity}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              {ethnicities.map((ethnicity) => (
+                <option key={ethnicity} value={ethnicity}>
+                  {ethnicity}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="formItem">
+            <label>CKD Stage</label>
+            <textarea className="formBox" readOnly value={ckdStageString} />
+          </div>
+          <div className="formItem">
+            <label htmlFor="userSex">Sex assigned at birth</label>
+            <select
+              id="userSex"
+              name="userSex"
+              value={formData.userSex}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              {userSexes.map((userSex) => (
+                <option key={userSex} value={userSex}>
+                  {userSex}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="formItem">
+            <label>Description</label>
+            <textarea className="formBox" readOnly value={ckdDescription} />
+          </div>
+          <button id="submitButton" type="submit" className="buttonDisabled">
+            Calculate
+          </button>
+          <p className="nextSteps">
+            CKD Stage info and steps <FontAwesomeIcon icon={faArrowRight} />
+          </p>
+        </div>
+      </form>
+    </div>
   );
 };
 export default CalculatorForm;
