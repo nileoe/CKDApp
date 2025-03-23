@@ -5,8 +5,20 @@ import Register from "./components/screens/Register";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import CalculatorScreen from "./components/screens/CalculatorScreen";
 import PastResultsScreen from "./components/screens/PastResultsScreen";
+import { useEffect } from "react";
+import { logout } from "./backend/userActions";
 
 function App() {
+  useEffect(() => {
+    const checkSession = async () => {
+      const sessionFlag = sessionStorage.getItem("isLoggedIn");
+
+      if (!sessionFlag) {
+        await logout();
+      }
+    };
+    checkSession();
+  }, []);
   //return <TestComponent />;
   return (
     <BrowserRouter>
