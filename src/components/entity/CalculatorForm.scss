@@ -45,8 +45,7 @@ p.nextSteps {
   width: 80%;
   margin: 10px auto;
 
-  /* General button styling */
-  button#submitButton {
+  button {
     padding: 10px;
     border-radius: 15px;
     margin: 10px 0px;
@@ -69,24 +68,14 @@ p.nextSteps {
     cursor: not-allowed; /* Shows pointer cursor for enabled buttons */
     background-color: #bbb; /* Gray background for disabled state */
   }
-
-  // button#submitButton {
-  //   padding: 10px;
-  //   border-radius: 15px;
-  //   // margin: 10px 0px 10px 80px;
-  //   margin: 10px 0px;
-  //
-  //   width: 30%;
-  //   color: white;
-  //   justify-self: right;
-  //   // border: 0.5px solid black;
-  // }
-  // button.buttonEnabled {
-  //   background-color: #adceb8;
-  // }
-  // button.buttonDisabled {
-  //   background-color: #ccc;
-  // }
+  div.infoTray {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button#recordButton {
+      font-weight: bold;
+    }
+  }
 }
 
 .formItem {

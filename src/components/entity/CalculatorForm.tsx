@@ -12,6 +12,7 @@ import {
   eGFRStages,
   isEthnicityBlack,
 } from "../../types/CalculationTypes";
+import { addCalculation } from "../../backend/calculationActions";
 
 const CalculatorForm = () => {
   // Initialization -----------
@@ -42,6 +43,11 @@ const CalculatorForm = () => {
     let resultString = "";
     if (egfrValue) {
       resultString = `${Math.round(egfrValue).toString()} ml/min/1.73m2`;
+      const recordButton: HTMLElement | null =
+        document.getElementById("recordButton");
+      if (recordButton) {
+        setButtonState(recordButton, true);
+      }
     } else {
       resultString = noResultsMessage;
     }
@@ -63,6 +69,20 @@ const CalculatorForm = () => {
       femaleModifier *
       blackModifier;
     return eGFRValue;
+  };
+
+  const setButtonState = (
+    button: HTMLElement | null,
+    newState: boolean,
+  ): void => {
+    if (!button) return;
+    if (newState) {
+      button.classList.add("buttonEnabled");
+      button.classList.remove("buttonDisabled");
+    } else {
+      button.classList.add("buttonDisabled");
+      button.classList.remove("buttonEnabled");
+    }
   };
 
   const getCKDStage = (eGFRValue: number): eGFRStage => {
@@ -107,8 +127,7 @@ const CalculatorForm = () => {
       formData.userAge,
     );
     const ckdStage = getCKDStage(result);
-    //setEgfrResultString(`${Math.round(result).toString()} ml/min/1.73m2`);
-    setEgfrValue(result); // todo move up
+    setEgfrValue(result);
     setCkdDescription(ckdStage.description);
     setCkdStage(ckdStage.name);
   };
@@ -123,10 +142,11 @@ const CalculatorForm = () => {
     }));
     if (allFormFieldsAreFilled()) {
       const calculateButton: HTMLElement | null =
-        document.getElementById("submitButton");
+        document.getElementById("calculateButton");
       if (calculateButton) {
-        calculateButton?.classList.add("buttonEnabled");
-        calculateButton?.classList.remove("buttonDisabled");
+        setButtonState(calculateButton, true);
+        //calculateButton?.classList.add("buttonEnabled");
+        //calculateButton?.classList.remove("buttonDisabled");
       }
     }
     // TODO remove
@@ -136,8 +156,25 @@ const CalculatorForm = () => {
       );
       console.log(loggedInUser);
     } else {
-      console.log("No user currently logged in");
+      console.error("No user is currently logged in");
     }
+  };
+
+  const handleRecord = () => {
+    const calculation: CalculationData = {
+      userId: loggedInUser.$id,
+      userAge: formData.userAge,
+      userSex: formData.userSex,
+      userEthnicity: formData.userEthnicity,
+      creatinineUnit: formData.creatinineUnit,
+      creatinineLevel: formData.creatinineLevel,
+      calculationResult: {
+        eGFRResult: egfrResultString,
+        ckdStage: ckdStageString,
+        ckdDescription: ckdDescription,
+      },
+    };
+    addCalculation(calculation);
   };
   // View -----------
   return (
@@ -237,12 +274,21 @@ const CalculatorForm = () => {
             <label>Description</label>
             <textarea className="formBox" readOnly value={ckdDescription} />
           </div>
-          <button id="submitButton" type="submit" className="buttonDisabled">
+          <button id="calculateButton" type="submit" className="buttonDisabled">
             Calculate
           </button>
-          <p className="nextSteps">
-            CKD Stage info and steps <FontAwesomeIcon icon={faArrowRight} />
-          </p>
+          <div className="infoTray">
+            <p className="nextSteps">
+              CKD Stage info and steps <FontAwesomeIcon icon={faArrowRight} />
+            </p>
+            <button
+              id="recordButton"
+              className="buttonDisabled"
+              onClick={handleRecord}
+            >
+              Record Calculation
+            </button>
+          </div>
         </div>
       </form>
     </div>
