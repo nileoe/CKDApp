@@ -130,25 +130,8 @@ const CalculatorForm = () => {
     );
     const ckdStage = getCKDStage(result);
     setEgfrValue(result);
-    //const eGFRString = `${Math.round(result)} ml/min/1.73m2`;
-
-    //setEgfrResultString(eGFRString);
     setCkdDescription(ckdStage.description);
     setCkdStage(ckdStage.name);
-
-    //if (loggedInUser) {
-    //  const docData = {
-    //    userId: loggedInUser.$id,
-    //    creatinineLevel: formData.creatinineLevel,
-    //    creatinineUnit: formData.creatinineUnit,
-    //    userAge: formData.userAge,
-    //    userSex: formData.userSex,
-    //    userEthnicity: formData.userEthnicity,
-    //    eGFRResult: eGFRString,
-    //    ckdStage: ckdStage.name,
-    //    ckdDescription: ckdStage.description,
-    //  };
-    //
   };
 
   const handleInputChange = (
@@ -165,18 +148,7 @@ const CalculatorForm = () => {
         document.getElementById("calculateButton");
       if (calculateButton) {
         setButtonState(calculateButton, true);
-        //calculateButton?.classList.add("buttonEnabled");
-        //calculateButton?.classList.remove("buttonDisabled");
       }
-    }
-    // TODO remove
-    if (loggedInUser) {
-      console.log(
-        `logged in user with name ${loggedInUser?.name} and id ${loggedInUser?.$id}:`,
-      );
-      console.log(loggedInUser);
-    } else {
-      console.error("No user is currently logged in");
     }
   };
 
@@ -204,8 +176,6 @@ const CalculatorForm = () => {
     };
     try {
       await saveCalculation(calculation);
-      console.log("Calculation saved:");
-      console.log(calculation);
     } catch (err) {
       console.error("Could not save calculation: ", err);
     }
