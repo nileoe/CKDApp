@@ -224,6 +224,8 @@ const CalculatorForm = () => {
               value={formData.userAge}
               onChange={handleInputChange}
               className="formBox"
+              min="18"
+              max="120"
               required
             />
           </div>
