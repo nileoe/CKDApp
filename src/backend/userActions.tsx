@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ID } from "appwrite";
 import { account } from "./appwriteConfig";
 
@@ -29,7 +30,7 @@ export const logout = async () => {
 export const createAccount = async (
   name: string,
   email: string,
-  password: string,
+  password: string
 ) => {
   return await account.create(ID.unique(), email, password, name);
 };
