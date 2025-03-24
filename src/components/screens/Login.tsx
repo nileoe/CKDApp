@@ -17,6 +17,7 @@ const Login = () => {
 
     try {
       await login(email, password);
+      sessionStorage.setItem("isLoggedIn", "true");
       navigate("/calculator");
     } catch (err) {
       setError("Invalid Details. Please Try Again");
