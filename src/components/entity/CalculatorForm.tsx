@@ -225,7 +225,7 @@ const CalculatorForm = () => {
               onChange={handleInputChange}
               className="formBox"
               min="18"
-              max="120"
+              max="110"
               required
             />
           </div>
