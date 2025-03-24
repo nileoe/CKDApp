@@ -1,9 +1,8 @@
 import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar.js";
 import Footer from "./Footer.js";
-import { User } from "../../types.js";
-//import { useAuth } from "../auth/useAuth";
 import "./Layout.scss";
+import { User } from "../../types/UserTypes.js";
 
 type LayoutProps = {
   loggedInUser?: User;
