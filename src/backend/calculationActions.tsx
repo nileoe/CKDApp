@@ -1,48 +1,44 @@
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 import { CalculationData } from "../types/CalculationTypes";
 import { databases, DB_ID } from "./appwriteConfig";
 
-//export type CalculationData = {
-//  userId: number;
-//  userAge: number;
-//  creatinineUnit: CreatinineUnit;
-//  creatinineLevel: number;
-//  userEthnicity: Ethnicity;
-//  userSex: UserSex;
-//  calculationResult: CalculationResult;
-//};
+export const DATABASE_ID = "CKD_DB";
+export const COLLECTION_ID = "Calculations";
 
-//type CalculationResult = {
-//  eGFRResult: string;
-//  ckdStage: string;
-//  ckdDescription: string;
-//};
+export const saveCalculation = async (newCalculation: CalculationData) => {
+  try {
+    const response = await databases.createDocument(
+      DB_ID,
+      "Calculations",
+      ID.unique(),
+      {
+        userId: newCalculation.userId,
+        userSex: newCalculation.userSex,
+        userAge: newCalculation.userAge,
+        userEthnicity: newCalculation.userEthnicity,
+        creatinineLevel: newCalculation.creatinineLevel,
+        creatinineUnit: newCalculation.creatinineUnit,
+        eGFRResult: newCalculation.calculationResult.eGFRResult,
+        ckdStage: newCalculation.calculationResult.ckdStage,
+        ckdDescription: newCalculation.calculationResult.ckdDescription,
+      },
+    );
+    return response;
+  } catch (error) {
+    console.error("Failed to save calculation:", error);
+    throw error;
+  }
+};
 
-//export async function addCalculation(newCalculation: CalculationData): Promise<CalculationData> {
-export async function addCalculation(
-  newCalculation: CalculationData,
-): Promise<void> {
-  const response = await databases.createDocument(
-    DB_ID,
-    "Calculations",
-    ID.unique(),
-    {
-      userId: newCalculation.userId,
-      userSex: newCalculation.userSex,
-      userAge: newCalculation.userAge,
-      userEthnicity: newCalculation.userEthnicity,
-      creatinineLevel: newCalculation.creatinineLevel,
-      creatinineUnit: newCalculation.creatinineUnit,
-      eGFRResult: newCalculation.calculationResult.eGFRResult,
-      ckdStage: newCalculation.calculationResult.ckdStage,
-      ckdDescription: newCalculation.calculationResult.ckdDescription,
-    },
-  );
-  console.log("posted new calculation. Response:");
-  console.log(response);
-  //const calculation = {
-  //  $id: response.$id,
-  //  $createdAt: response.$createdAt,
-  //};
-  //return calculation;
-}
+export const getUserCalculations = async (userId: string) => {
+  try {
+    const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.equal("userId", userId),
+      Query.orderDesc("$createdAt"),
+    ]);
+    return response.documents;
+  } catch (error) {
+    console.error("Failed to fetch calculations:", error);
+    throw error;
+  }
+};

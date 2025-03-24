@@ -12,7 +12,7 @@ import {
   eGFRStages,
   isEthnicityBlack,
 } from "../../types/CalculationTypes";
-import { addCalculation } from "../../backend/calculationActions";
+import { saveCalculation } from "../../backend/calculationActions";
 
 const CalculatorForm = () => {
   // Initialization -----------
@@ -31,6 +31,7 @@ const CalculatorForm = () => {
   const [ckdDescription, setCkdDescription] =
     useState<string>(noResultsMessage);
   const [ckdStageString, setCkdStage] = useState<string>(noResultsMessage);
+
   const [formData, setFormData] = useState({
     creatinineLevel: 90,
     userAge: 18,
@@ -118,8 +119,9 @@ const CalculatorForm = () => {
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
-    const isBlack: boolean = isEthnicityBlack(formData.userEthnicity);
-    const isFemale: boolean = formData.userSex.toLowerCase() === "female";
+
+    const isBlack = isEthnicityBlack(formData.userEthnicity);
+    const isFemale = formData.userSex.toLowerCase() === "female";
     const result = getEgfrValue(
       isBlack,
       isFemale,
@@ -128,17 +130,35 @@ const CalculatorForm = () => {
     );
     const ckdStage = getCKDStage(result);
     setEgfrValue(result);
+    //const eGFRString = `${Math.round(result)} ml/min/1.73m2`;
+
+    //setEgfrResultString(eGFRString);
     setCkdDescription(ckdStage.description);
     setCkdStage(ckdStage.name);
+
+    //if (loggedInUser) {
+    //  const docData = {
+    //    userId: loggedInUser.$id,
+    //    creatinineLevel: formData.creatinineLevel,
+    //    creatinineUnit: formData.creatinineUnit,
+    //    userAge: formData.userAge,
+    //    userSex: formData.userSex,
+    //    userEthnicity: formData.userEthnicity,
+    //    eGFRResult: eGFRString,
+    //    ckdStage: ckdStage.name,
+    //    ckdDescription: ckdStage.description,
+    //  };
+    //
   };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "number" ? parseFloat(value) : value,
     }));
     if (allFormFieldsAreFilled()) {
       const calculateButton: HTMLElement | null =
@@ -160,7 +180,15 @@ const CalculatorForm = () => {
     }
   };
 
-  const handleRecord = () => {
+  const handleRecord = async () => {
+    if (!egfrValue) {
+      console.log("no calculation");
+      return;
+    }
+    if (!loggedInUser) {
+      console.error("No logged in user found");
+      return;
+    }
     const calculation: CalculationData = {
       userId: loggedInUser.$id,
       userAge: formData.userAge,
@@ -174,8 +202,15 @@ const CalculatorForm = () => {
         ckdDescription: ckdDescription,
       },
     };
-    addCalculation(calculation);
+    try {
+      await saveCalculation(calculation);
+      console.log("Calculation saved:");
+      console.log(calculation);
+    } catch (err) {
+      console.error("Could not save calculation: ", err);
+    }
   };
+
   // View -----------
   return (
     <div className="formContainer">
