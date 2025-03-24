@@ -1,17 +1,27 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { databases } from "./appwriteConfig";
 import { ID, Query } from "appwrite";
+import { CalculationData } from "../types/CalculationTypes";
+import { databases, DB_ID } from "./appwriteConfig";
 
 export const DATABASE_ID = "CKD_DB";
 export const COLLECTION_ID = "Calculations";
 
-export const saveCalculation = async (data: any) => {
+export const saveCalculation = async (newCalculation: CalculationData) => {
   try {
     const response = await databases.createDocument(
-      DATABASE_ID,
-      COLLECTION_ID,
+      DB_ID,
+      "Calculations",
       ID.unique(),
-      data
+      {
+        userId: newCalculation.userId,
+        userSex: newCalculation.userSex,
+        userAge: newCalculation.userAge,
+        userEthnicity: newCalculation.userEthnicity,
+        creatinineLevel: newCalculation.creatinineLevel,
+        creatinineUnit: newCalculation.creatinineUnit,
+        eGFRResult: newCalculation.calculationResult.eGFRResult,
+        ckdStage: newCalculation.calculationResult.ckdStage,
+        ckdDescription: newCalculation.calculationResult.ckdDescription,
+      },
     );
     return response;
   } catch (error) {
