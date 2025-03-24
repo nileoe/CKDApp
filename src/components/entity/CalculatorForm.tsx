@@ -16,7 +16,7 @@ import {
 const CalculatorForm = () => {
   // Initialization -----------
   const [loggedInUser, setLoggedInUser] = useState<null | any>(null); // TODO any
-
+  const noResultsMessage = "Submit calculation to see your result";
   useEffect(() => {
     const fetchUser = async () => {
       setLoggedInUser(await getCurrentUser());
@@ -25,15 +25,11 @@ const CalculatorForm = () => {
   }, []);
 
   // State -------------
-  const [egfrResultString, setEgfrResultString] = useState<string>(
-    "Submit calculation to see your result",
-  );
-  const [ckdDescription, setCkdDescription] = useState<string>(
-    "Submit calculation to see your result",
-  );
-  const [ckdStageString, setCkdStage] = useState<string>(
-    "Submit calculation to see your result",
-  );
+  const [egfrValue, setEgfrValue] = useState<number | null>(null);
+  const [egfrResultString, setEgfrResultString] = useState<string>("");
+  const [ckdDescription, setCkdDescription] =
+    useState<string>(noResultsMessage);
+  const [ckdStageString, setCkdStage] = useState<string>(noResultsMessage);
   const [formData, setFormData] = useState({
     creatinineLevel: 90,
     userAge: 18,
@@ -41,6 +37,16 @@ const CalculatorForm = () => {
     userSex: "",
     creatinineUnit: creatinineUnits[0],
   });
+
+  useEffect(() => {
+    let resultString = "";
+    if (egfrValue) {
+      resultString = `${Math.round(egfrValue).toString()} ml/min/1.73m2`;
+    } else {
+      resultString = noResultsMessage;
+    }
+    setEgfrResultString(resultString);
+  }, [egfrValue]);
   // Handlers ----------
   const getEgfrValue = (
     isBlack: boolean,
@@ -76,6 +82,7 @@ const CalculatorForm = () => {
     }
     return stage;
   };
+
   const allFormFieldsAreFilled = () => {
     const ageDropdown: HTMLSelectElement = document.getElementById(
       "userAge",
@@ -88,6 +95,7 @@ const CalculatorForm = () => {
     ) as HTMLSelectElement;
     return ageDropdown.value && ethnicityDropdown.value && sexDropdown.value;
   };
+
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
     const isBlack: boolean = isEthnicityBlack(formData.userEthnicity);
@@ -99,7 +107,8 @@ const CalculatorForm = () => {
       formData.userAge,
     );
     const ckdStage = getCKDStage(result);
-    setEgfrResultString(`${Math.round(result).toString()} ml/min/1.73m2`);
+    //setEgfrResultString(`${Math.round(result).toString()} ml/min/1.73m2`);
+    setEgfrValue(result); // todo move up
     setCkdDescription(ckdStage.description);
     setCkdStage(ckdStage.name);
   };
