@@ -13,17 +13,19 @@ import {
   isEthnicityBlack,
 } from "../../types/CalculationTypes";
 import { saveCalculation } from "../../backend/calculationActions";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CalculatorForm = () => {
   // Initialization -----------
-  const [loggedInUser, setLoggedInUser] = useState<null | any>(null); // TODO an
+  const [loggedInUser, setLoggedInUser] = useState<null | any>(null);
   useEffect(() => {
     const fetchUser = async () => {
       setLoggedInUser(await getCurrentUser());
     };
     fetchUser();
   }, []);
+  const noResultsMessage = "Submit calculation to see your result";
+  const navigate = useNavigate();
 
   // State -------------
   const [egfrValue, setEgfrValue] = useState<number | null>(null);
@@ -122,7 +124,7 @@ const CalculatorForm = () => {
 
     if (formData.userAge < 18) {
       alert(
-        "This calculator is for users 18 years and older. Please use the Pediatric Calculator."
+        "This calculator is for users 18 years and older. Please use the Pediatric Calculator.",
       );
       navigate("/pediatric_calculator");
       return;
@@ -232,7 +234,6 @@ const CalculatorForm = () => {
               value={formData.userAge}
               onChange={handleInputChange}
               className="formBox"
-              min="18"
               max="110"
               required
             />
