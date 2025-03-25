@@ -1,0 +1,81 @@
+.pediatricCalculatorForm {
+  background-color: #f3e2c7;
+  padding: 2rem;
+  font-family: "Segoe UI", sans-serif;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #3d2b28;
+    font-size: 1.8rem;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      color: #4c3d34;
+
+      input,
+      select {
+        margin-top: 0.5rem;
+        padding: 0.7rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    button {
+      grid-column: span 2;
+      justify-self: start;
+      padding: 0.75rem 2rem;
+      margin-top: 1rem;
+      background-color: #9fc2a8;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background-color: #7fae8b;
+      }
+    }
+  }
+
+  .resultBox {
+    grid-column: span 2;
+    background-color: #e9ded2;
+    margin: 2rem auto 0;
+    max-width: 600px;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+
+    h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+      color: #3d2b28;
+    }
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+}
