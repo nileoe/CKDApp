@@ -24,6 +24,7 @@ const Register = () => {
       setError(`Registration failed: ${err}`);
     }
   };
+  const todayDate = new Date().toISOString().split("T")[0];
 
   return (
     <div className="container">
@@ -67,6 +68,8 @@ const Register = () => {
               placeholder="Date of Birth"
               value={userDOB}
               onChange={(e) => setUserDOB(e.target.value)}
+              min="1900-01-01"
+              max={todayDate}
               required
             />
           </div>
