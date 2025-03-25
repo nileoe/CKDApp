@@ -5,7 +5,7 @@ import { databases, DB_ID } from "./appwriteConfig";
 export const DATABASE_ID = "CKD_DB";
 export const COLLECTION_ID = "Calculations";
 
-export const saveCalculation = async (newCalculation: CalculationData) => {
+export const saveCalculation = async (newCalculation: any) => {
   try {
     const response = await databases.createDocument(
       DB_ID,

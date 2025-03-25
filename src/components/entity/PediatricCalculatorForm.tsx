@@ -40,7 +40,7 @@ const PediatricCalculatorForm = () => {
 
     if (formData.age >= 18) {
       alert(
-        "This calculator is for users under 18 years old. Please use the Adult Calculator."
+        "This calculator is for users under 18 years old. Please use the Adult Calculator.",
       );
       return;
     }
@@ -79,7 +79,7 @@ const PediatricCalculatorForm = () => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({

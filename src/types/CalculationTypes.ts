@@ -23,7 +23,7 @@ export const ethnicities = [
 export const isEthnicityBlack = (ethnicity: string): boolean =>
   ethnicity.toLowerCase().includes("black"); // very advanced and conscious of the complex cultural landscapes of multiple black ethnicities i know i know
 
-type CreatinineUnit = (typeof creatinineUnits)[number];
+//type CreatinineUnit = (typeof creatinineUnits)[number];
 //type UserSex = (typeof userSexes)[number];
 //type Ethnicity = (typeof ethnicities)[number];
 type CalculationResult = {
@@ -37,7 +37,7 @@ export type CalculationData = {
   //$createdAt: string;
   userId: number;
   userAge: number;
-  creatinineUnit: CreatinineUnit;
+  creatinineUnit: string;
   creatinineLevel: number;
   userEthnicity: string;
   userSex: string;
