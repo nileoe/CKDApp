@@ -19,6 +19,9 @@ function Navbar() {
         <NavLink to="/calculator" className="navItem leftItem">
           Calculator
         </NavLink>
+        <NavLink to="/pediatric_calculator" className="navItem leftItem">
+          Pediatric Calculator
+        </NavLink>
         <NavLink to="/past_results" className="navItem leftItem">
           Past Results
         </NavLink>

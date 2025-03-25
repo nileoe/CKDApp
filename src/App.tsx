@@ -7,6 +7,7 @@ import CalculatorScreen from "./components/screens/CalculatorScreen";
 import PastResultsScreen from "./components/screens/PastResultsScreen";
 import { useEffect } from "react";
 import { logout } from "./backend/userActions";
+import PediatricCalculatorScreen from "./components/screens/PediatricCalculatorScreen";
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,10 @@ function App() {
             }
           />
           <Route path="/past_results" element={<PastResultsScreen />} />
+          <Route
+            path="/pediatric_calculator"
+            element={<PediatricCalculatorScreen />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>
