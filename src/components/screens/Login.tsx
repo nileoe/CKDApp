@@ -49,6 +49,7 @@ const Login = () => {
               required
             />
           </div>
+          <p id="errorParagraph">{error}</p>
           <button type="submit" className="loginBtn">
             Login
           </button>
