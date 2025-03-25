@@ -12,13 +12,21 @@ const Register = () => {
   const [error, setError] = useState("");
   const [userDOB, setUserDOB] = useState("");
   const [userSex, setUserSex] = useState("female");
+  const [userEthnicity, setUserEthnicity] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     try {
-      await createAccount(name, email, password, userDOB, userSex);
+      await createAccount(
+        name,
+        email,
+        password,
+        userDOB,
+        userSex,
+        userEthnicity,
+      );
       navigate("/");
     } catch (err) {
       setError(`Registration failed: ${err}`);
@@ -90,7 +98,11 @@ const Register = () => {
           </div>
 
           <div className="inputGroup">
-            <select className="registerInput" required>
+            <select
+              className="registerInput"
+              onChange={(e) => setUserEthnicity(e.target.value)}
+              required
+            >
               {ethnicities.map((ethnicity) => (
                 <option key={ethnicity} value={ethnicity}>
                   {ethnicity}

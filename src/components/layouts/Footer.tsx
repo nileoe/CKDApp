@@ -11,7 +11,7 @@ function Footer() {
 
   return (
     <footer>
-      <p className="footerText">©CKDTeam</p>
+      <p className="footerText">©CareMetrics2025</p>
     </footer>
   );
 }

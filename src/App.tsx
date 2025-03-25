@@ -13,11 +13,6 @@ function App() {
   useEffect(() => {
     const checkSession = async () => {
       const sessionFlag = sessionStorage.getItem("isLoggedIn");
-      console.log(`printing session storage`);
-      console.log(sessionStorage);
-      console.log(`printing sessionFlag (isLoggedIn)`);
-      console.log(sessionFlag);
-
       if (!sessionFlag) {
         await logout();
       }

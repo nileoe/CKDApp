@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCurrentUser } from "../../backend/userActions";
+import { getCurrentUser, getUserData } from "../../backend/userActions";
 import "./CalculatorForm.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +17,19 @@ import { useNavigate } from "react-router-dom";
 
 const CalculatorForm = () => {
   // Initialization -----------
+  interface UserData {
+    userEthnicity: string;
+    userSex: string;
+    userDOB: string; // Assuming ISO format
+  }
+
+  interface FormData {
+    creatinineLevel: number;
+    userAge: number; // Age as an integer
+    userEthnicity: string;
+    userSex: string;
+    creatinineUnit: string;
+  }
   const [loggedInUser, setLoggedInUser] = useState<null | any>(null);
   useEffect(() => {
     const fetchUser = async () => {
@@ -24,6 +37,15 @@ const CalculatorForm = () => {
     };
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    if (!loggedInUser) return;
+    const fetchUserData = async () => {
+      setUserData((await getUserData(loggedInUser.$id))[0] as any);
+    };
+    fetchUserData();
+  }, [loggedInUser]);
+
   const noResultsMessage = "Submit calculation to see your result";
   const navigate = useNavigate();
 
@@ -33,8 +55,9 @@ const CalculatorForm = () => {
   const [ckdDescription, setCkdDescription] =
     useState<string>(noResultsMessage);
   const [ckdStageString, setCkdStage] = useState<string>(noResultsMessage);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     creatinineLevel: 90,
     userAge: 18,
     userEthnicity: "",
@@ -56,6 +79,32 @@ const CalculatorForm = () => {
     }
     setEgfrResultString(resultString);
   }, [egfrValue]);
+
+  useEffect(() => {
+    if (!userData) return;
+
+    // Calculate age based on userDOB
+    const calculateAge = (dobString: string) => {
+      const today = new Date();
+      const dob = new Date(dobString);
+      let age = today.getFullYear() - dob.getFullYear();
+      const monthDiff = today.getMonth() - dob.getMonth();
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < dob.getDate())
+      ) {
+        age--;
+      }
+      return age;
+    };
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      userEthnicity: userData.userEthnicity,
+      userSex: userData.userSex,
+      userAge: calculateAge(userData.userDOB),
+    }));
+  }, [userData]);
   // Handlers ----------
   const getEgfrValue = (
     isBlack: boolean,
