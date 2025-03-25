@@ -17,34 +17,21 @@ import { Link, useNavigate } from "react-router-dom";
 
 const CalculatorForm = () => {
   // Initialization -----------
-  const [loggedInUser, setLoggedInUser] = useState<null | any>(null); // TODO any
-  const navigate = useNavigate();
-
+  const [loggedInUser, setLoggedInUser] = useState<null | any>(null); // TODO an
   useEffect(() => {
     const fetchUser = async () => {
       setLoggedInUser(await getCurrentUser());
     };
     fetchUser();
-
-    if (loggedInUser) {
-      console.log(
-        `logged in user with name ${loggedInUser?.name} and id ${loggedInUser?.$id}`
-      );
-    } else {
-      console.log("no logged in user found.");
-    }
   }, []);
 
   // State -------------
-  const [egfrResultString, setEgfrResultString] = useState<string>(
-    "Submit calculation to see your result"
-  );
-  const [ckdDescription, setCkdDescription] = useState<string>(
-    "Submit calculation to see your result"
-  );
-  const [ckdStageString, setCkdStage] = useState<string>(
-    "Submit calculation to see your result"
-  );
+  const [egfrValue, setEgfrValue] = useState<number | null>(null);
+  const [egfrResultString, setEgfrResultString] = useState<string>("");
+  const [ckdDescription, setCkdDescription] =
+    useState<string>(noResultsMessage);
+  const [ckdStageString, setCkdStage] = useState<string>(noResultsMessage);
+
   const [formData, setFormData] = useState({
     creatinineLevel: 90,
     userAge: 18,
@@ -52,12 +39,27 @@ const CalculatorForm = () => {
     userSex: "",
     creatinineUnit: creatinineUnits[0],
   });
+
+  useEffect(() => {
+    let resultString = "";
+    if (egfrValue) {
+      resultString = `${Math.round(egfrValue).toString()} ml/min/1.73m2`;
+      const recordButton: HTMLElement | null =
+        document.getElementById("recordButton");
+      if (recordButton) {
+        setButtonState(recordButton, true);
+      }
+    } else {
+      resultString = noResultsMessage;
+    }
+    setEgfrResultString(resultString);
+  }, [egfrValue]);
   // Handlers ----------
   const getEgfrValue = (
     isBlack: boolean,
     isFemale: boolean,
     creatinineLevel: number,
-    age: number
+    age: number,
   ): number => {
     const blackModifier: number = isBlack ? 1.21 : 1;
     const femaleModifier: number = isFemale ? 0.742 : 1;
@@ -68,6 +70,20 @@ const CalculatorForm = () => {
       femaleModifier *
       blackModifier;
     return eGFRValue;
+  };
+
+  const setButtonState = (
+    button: HTMLElement | null,
+    newState: boolean,
+  ): void => {
+    if (!button) return;
+    if (newState) {
+      button.classList.add("buttonEnabled");
+      button.classList.remove("buttonDisabled");
+    } else {
+      button.classList.add("buttonDisabled");
+      button.classList.remove("buttonEnabled");
+    }
   };
 
   const getCKDStage = (eGFRValue: number): eGFRStage => {
@@ -88,7 +104,20 @@ const CalculatorForm = () => {
     return stage;
   };
 
-  const handleCalculate = async (e: React.FormEvent) => {
+  const allFormFieldsAreFilled = () => {
+    const ageDropdown: HTMLSelectElement = document.getElementById(
+      "userAge",
+    ) as HTMLSelectElement;
+    const ethnicityDropdown: HTMLSelectElement = document.getElementById(
+      "userEthnicity",
+    ) as HTMLSelectElement;
+    const sexDropdown: HTMLSelectElement = document.getElementById(
+      "userSex",
+    ) as HTMLSelectElement;
+    return ageDropdown.value && ethnicityDropdown.value && sexDropdown.value;
+  };
+
+  const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (formData.userAge < 18) {
@@ -105,42 +134,16 @@ const CalculatorForm = () => {
       isBlack,
       isFemale,
       formData.creatinineLevel,
-      formData.userAge
+      formData.userAge,
     );
     const ckdStage = getCKDStage(result);
-
-    const eGFRString = `${Math.round(result)} ml/min/1.73m2`;
-
-    setEgfrResultString(eGFRString);
+    setEgfrValue(result);
     setCkdDescription(ckdStage.description);
     setCkdStage(ckdStage.name);
-
-    if (loggedInUser) {
-      const docData = {
-        userId: loggedInUser.$id,
-        creatinineLevel: formData.creatinineLevel,
-        creatinineUnit: formData.creatinineUnit,
-        userAge: formData.userAge,
-        userSex: formData.userSex,
-        userEthnicity: formData.userEthnicity,
-        eGFRResult: eGFRString,
-        ckdStage: ckdStage.name,
-        ckdDescription: ckdStage.description,
-      };
-
-      try {
-        await saveCalculation(docData);
-        console.log("Calculation saved.");
-      } catch (err) {
-        console.error("Could not save calculation", err);
-      }
-    } else {
-      console.warn("User not logged in, cannot save calculation.");
-    }
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value, type } = e.target;
 
@@ -148,118 +151,162 @@ const CalculatorForm = () => {
       ...prev,
       [name]: type === "number" ? parseFloat(value) : value,
     }));
+    if (allFormFieldsAreFilled()) {
+      const calculateButton: HTMLElement | null =
+        document.getElementById("calculateButton");
+      if (calculateButton) {
+        setButtonState(calculateButton, true);
+      }
+    }
+  };
+
+  const handleRecord = async () => {
+    if (!egfrValue) {
+      console.log("no calculation");
+      return;
+    }
+    if (!loggedInUser) {
+      console.error("No logged in user found");
+      return;
+    }
+    const calculation: CalculationData = {
+      userId: loggedInUser.$id,
+      userAge: formData.userAge,
+      userSex: formData.userSex,
+      userEthnicity: formData.userEthnicity,
+      creatinineUnit: formData.creatinineUnit,
+      creatinineLevel: formData.creatinineLevel,
+      calculationResult: {
+        eGFRResult: egfrResultString,
+        ckdStage: ckdStageString,
+        ckdDescription: ckdDescription,
+      },
+    };
+    try {
+      await saveCalculation(calculation);
+    } catch (err) {
+      console.error("Could not save calculation: ", err);
+    }
   };
 
   // View -----------
-  // TODO is mainContainer useful (styled) if not remove
   return (
-    <>
-      <div className="formContainer">
-        <form onSubmit={handleCalculate}>
-          <div className="gridContainer">
-            <div className="formItem">
-              <label htmlFor="creatinineLevel">Creatinine Level</label>
-              <input
-                type="number"
-                id="creatinineLevel"
-                name="creatinineLevel"
-                value={formData.creatinineLevel}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              />
-            </div>
-            <div className="formItem">
-              <label htmlFor="creatinineUnit">Unit</label>
-              <select
-                id="creatinineUnit"
-                name="creatinineUnit"
-                value={formData.creatinineUnit}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              >
-                {creatinineUnits.map((unit) => (
-                  <option key={unit} value={unit}>
-                    {unit}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="formItem">
-              <label htmlFor="userAge">Age</label>
-              <input
-                type="number"
-                id="userAge"
-                name="userAge"
-                value={formData.userAge}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              />
-            </div>
-            <div className="formItem">
-              <label>eGFR</label>
-              <textarea className="formBox" readOnly value={egfrResultString} />
-            </div>
-            <div className="formItem">
-              <label htmlFor="userEthnicity">Ethnicity</label>
-              <select
-                id="userEthnicity"
-                name="userEthnicity"
-                value={formData.userEthnicity}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              >
-                <option value="" disabled>
-                  Select ethnicity
+    <div className="formContainer">
+      <form onSubmit={handleCalculate}>
+        <div className="gridContainer">
+          <div className="formItem">
+            <label htmlFor="creatinineLevel">Creatinine Level</label>
+            <input
+              type="number"
+              id="creatinineLevel"
+              name="creatinineLevel"
+              value={formData.creatinineLevel}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            />
+          </div>
+          <div className="formItem">
+            <label htmlFor="creatinineUnit">Unit</label>
+            <select
+              id="creatinineUnit"
+              name="creatinineUnit"
+              value={formData.creatinineUnit}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            >
+              {creatinineUnits.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
                 </option>
-                {ethnicities.map((ethnicity) => (
-                  <option key={ethnicity} value={ethnicity}>
-                    {ethnicity}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="formItem">
-              <label>CKD Stage</label>
-              <textarea className="formBox" readOnly value={ckdStageString} />
-            </div>
-            <div className="formItem">
-              <label htmlFor="userSex">Sex assigned at birth</label>
-              <select
-                id="userSex"
-                name="userSex"
-                value={formData.userSex}
-                onChange={handleInputChange}
-                className="formBox"
-                required
-              >
-                <option value="" disabled>
-                  Select
+              ))}
+            </select>
+          </div>
+          <div className="formItem">
+            <label htmlFor="userAge">Age</label>
+            <input
+              type="number"
+              id="userAge"
+              name="userAge"
+              value={formData.userAge}
+              onChange={handleInputChange}
+              className="formBox"
+              min="18"
+              max="110"
+              required
+            />
+          </div>
+          <div className="formItem">
+            <label>eGFR</label>
+            <textarea className="formBox" readOnly value={egfrResultString} />
+          </div>
+          <div className="formItem">
+            <label htmlFor="userEthnicity">Ethnicity</label>
+            <select
+              id="userEthnicity"
+              name="userEthnicity"
+              value={formData.userEthnicity}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              {ethnicities.map((ethnicity) => (
+                <option key={ethnicity} value={ethnicity}>
+                  {ethnicity}
                 </option>
-                {userSexes.map((userSex) => (
-                  <option key={userSex} value={userSex}>
-                    {userSex}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="formItem">
-              <label>Description</label>
-              <textarea className="formBox" readOnly value={ckdDescription} />
-            </div>
-            <button className="submitButton" type="submit">
-              Calculate
-            </button>
+              ))}
+            </select>
+          </div>
+          <div className="formItem">
+            <label>CKD Stage</label>
+            <textarea className="formBox" readOnly value={ckdStageString} />
+          </div>
+          <div className="formItem">
+            <label htmlFor="userSex">Sex assigned at birth</label>
+            <select
+              id="userSex"
+              name="userSex"
+              value={formData.userSex}
+              onChange={handleInputChange}
+              className="formBox"
+              required
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              {userSexes.map((userSex) => (
+                <option key={userSex} value={userSex}>
+                  {userSex}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="formItem">
+            <label>Description</label>
+            <textarea className="formBox" readOnly value={ckdDescription} />
+          </div>
+          <button id="calculateButton" type="submit" className="buttonDisabled">
+            Calculate
+          </button>
+          <div className="infoTray">
             <p className="nextSteps">
               CKD Stage info and steps <FontAwesomeIcon icon={faArrowRight} />
             </p>
+            <button
+              id="recordButton"
+              className="buttonDisabled"
+              onClick={handleRecord}
+            >
+              Record Calculation
+            </button>
           </div>
-        </form>
-      </div>
-    </>
+        </div>
+      </form>
+    </div>
   );
 };
 export default CalculatorForm;

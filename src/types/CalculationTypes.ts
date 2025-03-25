@@ -1,7 +1,7 @@
 export const creatinineUnits = ["micromol/l", "mg/dl"] as const;
 //export const userSexes = ["Female", "Male", "Other"] as const;
 export const userSexes = ["Female", "Male"] as const;
-export const ckdStages = ["Early", "Middle", "Advanced"] as const;
+//export const ckdStages = ["Early", "Middle", "Advanced"] as const;
 export const ethnicities = [
   "White - British",
   "White - Irish",
@@ -24,21 +24,23 @@ export const isEthnicityBlack = (ethnicity: string): boolean =>
   ethnicity.toLowerCase().includes("black"); // very advanced and conscious of the complex cultural landscapes of multiple black ethnicities i know i know
 
 type CreatinineUnit = (typeof creatinineUnits)[number];
-type UserSex = (typeof userSexes)[number];
-type CKDStage = (typeof ckdStages)[number];
-type Ethnicity = (typeof ethnicities)[number];
+//type UserSex = (typeof userSexes)[number];
+//type Ethnicity = (typeof ethnicities)[number];
 type CalculationResult = {
-  eGFR: number;
-  CKDStage: CKDStage;
+  eGFRResult: string;
+  ckdStage: string;
+  ckdDescription: string;
 };
 
 export type CalculationData = {
+  //$id: string;
+  //$createdAt: string;
   userId: number;
   userAge: number;
   creatinineUnit: CreatinineUnit;
   creatinineLevel: number;
-  userEthnicity: Ethnicity;
-  userSex: UserSex;
+  userEthnicity: string;
+  userSex: string;
   calculationResult: CalculationResult;
 };
 
