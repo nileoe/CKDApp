@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "../../backend/userActions";
+import AccountView from "../entity/AccountView";
 
-const PatientListScreen = () => {
+const AccountScreen = () => {
   // initialization -----------
   // State -------------
   // Handlers ----------
@@ -15,14 +16,13 @@ const PatientListScreen = () => {
   }, []);
   return (
     <>
-      <p>yo patients</p>
-      <button
-        onClick={() => console.log(JSON.stringify(loggedInUser, null, 4))}
-      >
-        Log User
-      </button>
+      {loggedInUser ? (
+        <AccountView account={loggedInUser} />
+      ) : (
+        <p>Loading...</p>
+      )}
     </>
   );
 };
 
-export default PatientListScreen;
+export default AccountScreen;
