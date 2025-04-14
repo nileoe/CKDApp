@@ -10,24 +10,30 @@ import { logout } from "../../backend/userActions";
 //import { useAuth } from '../auth/useAuth';
 //
 function Navbar() {
-  //const { loggedInUser } = useAuth();
-  const loggedInUserIsAdmin = false; // TODO placeholder
-  // activeClassName = the current URL matches the one in 'exact'
+  const loggedInUserIsAdmin = true; // TODO placeholder
   return (
     <nav>
       <div className="navArea">
         <NavLink to="/calculator" className="navItem leftItem">
           Calculator
         </NavLink>
-        <NavLink to="/pediatric_calculator" className="navItem leftItem">
-          Pediatric Calculator
-        </NavLink>
-        <NavLink to="/past_results" className="navItem leftItem">
-          Past Results
-        </NavLink>
-        <NavLink to="/consultation_notes" className="navItem leftItem">
-          Consultation Notes
-        </NavLink>
+
+        {!loggedInUserIsAdmin ? (
+          <>
+            <NavLink to="/pediatric_calculator" className="navItem leftItem">
+              Pediatric Calculator
+            </NavLink>
+            <NavLink to="/past_results" className="navItem leftItem">
+              Past Results
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink to="/patients" className="navItem leftItem">
+              My Patients
+            </NavLink>
+          </>
+        )}
       </div>
 
       <div className="navArea">
@@ -37,14 +43,14 @@ function Navbar() {
         <NavLink to="/account" className="navItem rightItem">
           <FontAwesomeIcon icon={faUser} />
         </NavLink>
-        <NavLink to="/settings" className="navItem rightItem">
-          <FontAwesomeIcon icon={faGear} />
-        </NavLink>
       </div>
     </nav>
   );
 }
 
+//<NavLink to="/settings" className="navItem rightItem">
+//  <FontAwesomeIcon icon={faGear} />
+//</NavLink>
 //<nav>
 //  <div className="navArea">
 //    <div className="navItem leftItem">

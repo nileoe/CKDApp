@@ -8,6 +8,7 @@ import PastResultsScreen from "./components/screens/PastResultsScreen";
 import { useEffect } from "react";
 import { logout } from "./backend/userActions";
 import PediatricCalculatorScreen from "./components/screens/PediatricCalculatorScreen";
+import PatientListScreen from "./components/screens/PatientListScreen";
 
 function App() {
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
             path="/pediatric_calculator"
             element={<PediatricCalculatorScreen />}
           />
+          <Route path="/patients" element={<PatientListScreen />} />
         </Routes>
       </Layout>
     </BrowserRouter>
