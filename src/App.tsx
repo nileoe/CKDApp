@@ -8,6 +8,8 @@ import PastResultsScreen from "./components/screens/PastResultsScreen";
 import { useEffect } from "react";
 import { logout } from "./backend/userActions";
 import PediatricCalculatorScreen from "./components/screens/PediatricCalculatorScreen";
+import PatientListScreen from "./components/screens/PatientListScreen";
+import AccountScreen from "./components/screens/AccountScreen";
 
 function App() {
   useEffect(() => {
@@ -19,7 +21,6 @@ function App() {
     };
     checkSession();
   }, []);
-  //return <TestComponent />;
   return (
     <BrowserRouter>
       <Layout>
@@ -38,6 +39,15 @@ function App() {
           <Route
             path="/pediatric_calculator"
             element={<PediatricCalculatorScreen />}
+          />
+          <Route path="/patients" element={<PatientListScreen />} />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <AccountScreen />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </Layout>

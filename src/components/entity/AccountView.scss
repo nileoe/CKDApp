@@ -1,0 +1,262 @@
+$primary-color: #4f46e5;
+$success-color: #15803d;
+$warning-color: #b45309;
+$danger-color: #b91c1c;
+$backgroundYellow: #eee2d2;
+$brown: #644f4f;
+$white: #ffffff;
+$dark-text: #1e293b;
+$medium-text: #64748b;
+$light-text: #94a3b8;
+$border-color: #e2e8f0;
+$shadow:
+  0 1px 3px rgba(0, 0, 0, 0.1),
+  0 1px 2px rgba(0, 0, 0, 0.06);
+$radius: 8px;
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+.account-page {
+  background-color: $backgroundYellow;
+  min-height: 100vh;
+  padding: $spacing-md;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
+  color: $dark-text;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.account-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.account-header {
+  background-color: $white;
+  border-radius: $radius;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    background-color: $primary-color;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: $spacing-md;
+  }
+
+  .user-details {
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0 0 $spacing-xs 0;
+    }
+
+    p {
+      color: $medium-text;
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .status-badge {
+    margin-left: auto;
+
+    span {
+      padding: $spacing-sm $spacing-md;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      &.clinician-badge {
+        background-color: rgba($warning-color, 0.1);
+      }
+      &.patient-badge {
+        background-color: rgba($success-color, 0.1);
+      }
+    }
+  }
+}
+
+.account-layout {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+  }
+}
+
+.main-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.sidebar-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.account-section {
+  background-color: $white;
+  border-radius: $radius;
+  padding: $spacing-lg;
+  box-shadow: $shadow;
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: $spacing-md;
+    color: $dark-text;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: $spacing-sm;
+    color: $dark-text;
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-lg;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.detail-item {
+  dt {
+    font-size: 14px;
+    color: $medium-text;
+    margin-bottom: $spacing-xs;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 15px;
+
+    &.subtext {
+      font-size: 12px;
+      color: $light-text;
+      margin-top: $spacing-xs;
+    }
+  }
+}
+
+.email-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+
+  .verification-badge {
+    font-size: 12px;
+    padding: 2px $spacing-sm;
+    border-radius: 12px;
+
+    &.verified {
+      background-color: rgba($success-color, 0.1);
+      color: $success-color;
+    }
+
+    &.unverified {
+      background-color: rgba($warning-color, 0.1);
+      color: $warning-color;
+    }
+  }
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: $spacing-sm;
+  }
+
+  &.enabled::before {
+    background-color: $success-color;
+  }
+
+  &.disabled::before {
+    background-color: $danger-color;
+  }
+}
+
+.auth-methods {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.auth-method-card {
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  padding: $spacing-md;
+
+  .auth-method-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .provider-type {
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .identifier {
+    font-size: 14px;
+    color: $medium-text;
+    margin: $spacing-xs 0 0 0;
+  }
+
+  .method-status {
+    font-size: 12px;
+    padding: 2px $spacing-sm;
+    border-radius: 12px;
+
+    &.active {
+      background-color: rgba($success-color, 0.1);
+      color: $success-color;
+    }
+  }
+}
