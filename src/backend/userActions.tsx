@@ -31,9 +31,11 @@ export const logout = async () => {
 
 const createUserData = async (
   userId: string,
+  name: string,
+  email: string,
   userDOB: string,
   userSex: string,
-  userEthnicity: string,
+  userEthnicity: string
 ) => {
   try {
     const response = await databases.createDocument(
@@ -41,11 +43,13 @@ const createUserData = async (
       USERDATA_COLLECTION_ID,
       ID.unique(),
       {
-        userId: userId,
-        userDOB: userDOB,
-        userSex: userSex,
-        userEthnicity: userEthnicity,
-      },
+        userId,
+        name,
+        email,
+        userDOB,
+        userSex,
+        userEthnicity,
+      }
     );
     return response;
   } catch (error) {
@@ -60,10 +64,17 @@ export const createAccount = async (
   password: string,
   userDOB: string,
   userSex: string,
-  userEthnicity: string,
+  userEthnicity: string
 ) => {
   const newAccount = await account.create(ID.unique(), email, password, name);
-  await createUserData(newAccount.$id, userDOB, userSex, userEthnicity);
+  await createUserData(
+    newAccount.$id,
+    name,
+    email,
+    userDOB,
+    userSex,
+    userEthnicity
+  );
 };
 
 export const getUserData = async (userId: any) => {
@@ -71,11 +82,24 @@ export const getUserData = async (userId: any) => {
     const response = await databases.listDocuments(
       DB_ID,
       USERDATA_COLLECTION_ID,
-      [Query.equal("userId", userId)],
+      [Query.equal("userId", userId)]
     );
     return response.documents;
   } catch (error) {
     console.error("Failed to fetch user data:", error);
+    throw error;
+  }
+};
+
+export const getAllUserData = async () => {
+  try {
+    const response = await databases.listDocuments(
+      DB_ID,
+      USERDATA_COLLECTION_ID
+    );
+    return response.documents;
+  } catch (error) {
+    console.error("Failed to fetch all users:", error);
     throw error;
   }
 };
