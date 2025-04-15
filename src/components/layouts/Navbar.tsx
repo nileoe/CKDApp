@@ -31,14 +31,10 @@ function Navbar() {
           Pediatric Results
         </NavLink>
 
-        {isAdmin ? (
-          <></>
-        ) : (
-          <>
-            <NavLink to="/patients" className="navItem leftItem">
-              My Patients
-            </NavLink>
-          </>
+        {!isAdmin && (
+          <NavLink to="/patients" className="navItem leftItem">
+            My Patients
+          </NavLink>
         )}
       </div>
 
