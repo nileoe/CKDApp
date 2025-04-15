@@ -1,0 +1,103 @@
+.pastResultsContainer {
+  padding: 2rem;
+  background-color: #f3e2c7;
+  font-family: "Segoe UI", sans-serif;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+
+    h2 {
+      font-size: 1.8rem;
+      color: #4c3d34;
+      margin: 0;
+    }
+
+    .searchInput {
+      flex: 1;
+      min-width: 240px;
+      margin-top: 1rem;
+
+      input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 20px;
+        font-size: 1rem;
+        background-color: #fff;
+        color: #444;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        outline: none;
+
+        &::placeholder {
+          color: #aaa;
+        }
+      }
+    }
+
+    .filterBtn {
+      background-color: #a5c7b9;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background-color: #8fb0a5;
+      }
+    }
+  }
+
+  .resultsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .resultItem {
+      background-color: #fef9f4;
+      border-bottom: 1px solid #d4bfa3;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background-color: #f1e3d4;
+      }
+
+      .summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+        color: #4c3d34;
+        font-size: 1rem;
+      }
+
+      .details {
+        margin-top: 0.8rem;
+        font-size: 0.9rem;
+        color: #555;
+        display: none;
+        line-height: 1.6;
+      }
+
+      &.expanded .details {
+        display: block;
+        padding-top: 0.8rem;
+      }
+    }
+  }
+}

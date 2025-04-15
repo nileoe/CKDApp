@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { User } from "../../types/UserTypes";
 import "./AccountView.scss";
 

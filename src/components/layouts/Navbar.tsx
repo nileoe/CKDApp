@@ -6,10 +6,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.scss";
 import { logout } from "../../backend/userActions";
+import { account } from "../../backend/appwriteConfig";
 //import { useAuth } from '../auth/useAuth';
 //
 function Navbar() {
-  const loggedInUserIsAdmin = true; // TODO placeholder
+  const isAdmin = account?.prefs?.role === "admin";
+
   return (
     <nav>
       <div className="navArea">
@@ -24,7 +26,12 @@ function Navbar() {
         <NavLink to="/past_results" className="navItem leftItem">
           Past Results
         </NavLink>
-        {!loggedInUserIsAdmin ? (
+
+        <NavLink to="/pediatric_results" className="navItem leftItem">
+          Pediatric Results
+        </NavLink>
+
+        {isAdmin ? (
           <></>
         ) : (
           <>
