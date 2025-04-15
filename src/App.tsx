@@ -10,6 +10,7 @@ import { logout } from "./backend/userActions";
 import PediatricCalculatorScreen from "./components/screens/PediatricCalculatorScreen";
 import PatientListScreen from "./components/screens/PatientListScreen";
 import AccountScreen from "./components/screens/AccountScreen";
+import PastPaediatricsResults from "./components/screens/PastPaediatricsResults";
 
 function App() {
   useEffect(() => {
@@ -39,6 +40,10 @@ function App() {
           <Route
             path="/pediatric_calculator"
             element={<PediatricCalculatorScreen />}
+          />
+          <Route
+            path="/pediatric_results"
+            element={<PastPaediatricsResults />}
           />
           <Route path="/patients" element={<PatientListScreen />} />
           <Route

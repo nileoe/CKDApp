@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "./PediatricCalculatorForm.scss";
 import { getCurrentUser } from "../../backend/userActions";
-import { saveCalculation } from "../../backend/calculationActions";
+import { saveCalculationPedi } from "../../backend/calculationActions";
 
 const PediatricCalculatorForm = () => {
   const [formData, setFormData] = useState({
@@ -40,7 +40,7 @@ const PediatricCalculatorForm = () => {
 
     if (formData.age >= 18) {
       alert(
-        "This calculator is for users under 18 years old. Please use the Adult Calculator.",
+        "This calculator is for users under 18 years old. Please use the Adult Calculator."
       );
       return;
     }
@@ -60,7 +60,7 @@ const PediatricCalculatorForm = () => {
     if (user) {
       const data = {
         userId: user.$id,
-        calculatorType: "pediatric",
+        //calculatorType: "pediatric",
         age,
         height,
         sex,
@@ -70,7 +70,7 @@ const PediatricCalculatorForm = () => {
       };
 
       try {
-        await saveCalculation(data);
+        await saveCalculationPedi(data);
         console.log("Saved pediatric result");
       } catch (err) {
         console.error("Save failed:", err);
@@ -79,7 +79,7 @@ const PediatricCalculatorForm = () => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { getCurrentUser, getUserData } from "../../backend/userActions";
 import "./CalculatorForm.scss";
@@ -110,7 +111,7 @@ const CalculatorForm = () => {
     isBlack: boolean,
     isFemale: boolean,
     creatinineLevel: number,
-    age: number,
+    age: number
   ): number => {
     const blackModifier: number = isBlack ? 1.21 : 1;
     const femaleModifier: number = isFemale ? 0.742 : 1;
@@ -125,7 +126,7 @@ const CalculatorForm = () => {
 
   const setButtonState = (
     button: HTMLElement | null,
-    newState: boolean,
+    newState: boolean
   ): void => {
     if (!button) return;
     if (newState) {
@@ -157,13 +158,13 @@ const CalculatorForm = () => {
 
   const allFormFieldsAreFilled = () => {
     const ageDropdown: HTMLSelectElement = document.getElementById(
-      "userAge",
+      "userAge"
     ) as HTMLSelectElement;
     const ethnicityDropdown: HTMLSelectElement = document.getElementById(
-      "userEthnicity",
+      "userEthnicity"
     ) as HTMLSelectElement;
     const sexDropdown: HTMLSelectElement = document.getElementById(
-      "userSex",
+      "userSex"
     ) as HTMLSelectElement;
     return ageDropdown.value && ethnicityDropdown.value && sexDropdown.value;
   };
@@ -173,7 +174,7 @@ const CalculatorForm = () => {
 
     if (formData.userAge < 18) {
       alert(
-        "This calculator is for users 18 years and older. Please use the Pediatric Calculator.",
+        "This calculator is for users 18 years and older. Please use the Pediatric Calculator."
       );
       navigate("/pediatric_calculator");
       return;
@@ -185,7 +186,7 @@ const CalculatorForm = () => {
       isBlack,
       isFemale,
       formData.creatinineLevel,
-      formData.userAge,
+      formData.userAge
     );
     const ckdStage = getCKDStage(result);
     setEgfrValue(result);
@@ -194,7 +195,7 @@ const CalculatorForm = () => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
 
