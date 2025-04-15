@@ -1,4 +1,4 @@
-import { Account, Client, Databases } from "appwrite";
+import { Account, Client, Databases, Query } from "appwrite";
 
 export const API_ENDPOINT = "https://cloud.appwrite.io/v1";
 export const PROJECT_ID = "67d0926f00273e046380";

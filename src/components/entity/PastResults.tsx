@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { getUserCalculations } from "../../backend/calculationActions";
@@ -12,11 +13,23 @@ const PastResults = () => {
 
   useEffect(() => {
     const fetchResults = async () => {
+      //await account.updatePrefs({ role: "admin" });
       try {
         const loggedInUser = await getCurrentUser();
+        console.log("Logged-in User:", loggedInUser);
+
         setUser(loggedInUser);
+
         if (loggedInUser) {
-          const data = await getUserCalculations(loggedInUser.$id);
+          const role = loggedInUser.prefs?.role;
+          console.log("User Role:", role);
+
+          const data =
+            role === "admin"
+              ? await getUserCalculations("all")
+              : await getUserCalculations(loggedInUser.$id);
+
+          console.log("Fetched Results:", data);
           setResults(data);
         }
       } catch (err) {
