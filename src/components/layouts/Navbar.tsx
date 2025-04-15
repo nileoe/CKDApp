@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faGear,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.scss";
@@ -18,15 +17,15 @@ function Navbar() {
           Calculator
         </NavLink>
 
+        <NavLink to="/pediatric_calculator" className="navItem leftItem">
+          Pediatric Calculator
+        </NavLink>
+
+        <NavLink to="/past_results" className="navItem leftItem">
+          Past Results
+        </NavLink>
         {!loggedInUserIsAdmin ? (
-          <>
-            <NavLink to="/pediatric_calculator" className="navItem leftItem">
-              Pediatric Calculator
-            </NavLink>
-            <NavLink to="/past_results" className="navItem leftItem">
-              Past Results
-            </NavLink>
-          </>
+          <></>
         ) : (
           <>
             <NavLink to="/patients" className="navItem leftItem">

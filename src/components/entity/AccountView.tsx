@@ -26,7 +26,9 @@ const AccountView = ({ account }: AccountPageProps) => {
   };
 
   // State -------------
-  const isUserClinician = true; // TODO placeholder for actual function
+  const isAdmin = account?.prefs?.role === "admin";
+  const userRoleLabel = isAdmin ? "Doctor" : "Clinician";
+
   // Handlers ----------
   // View -----------
   return (
@@ -43,12 +45,8 @@ const AccountView = ({ account }: AccountPageProps) => {
               </p>
             </div>
             <div className="status-badge">
-              <span
-                className={
-                  isUserClinician ? "clinician-badge" : "patient-badge"
-                }
-              >
-                {isUserClinician ? "Clinician" : "Patient"}
+              <span className={isAdmin ? "doctor-badge" : "clinician-badge"}>
+                {userRoleLabel}
               </span>
             </div>
           </div>
@@ -68,7 +66,11 @@ const AccountView = ({ account }: AccountPageProps) => {
                       <dd className="email-wrapper">
                         {account.email}
                         <span
-                          className={`verification-badge ${account.emailVerification ? "verified" : "unverified"}`}
+                          className={`verification-badge ${
+                            account.emailVerification
+                              ? "verified"
+                              : "unverified"
+                          }`}
                         >
                           {account.emailVerification
                             ? "Verified"
@@ -90,7 +92,9 @@ const AccountView = ({ account }: AccountPageProps) => {
                       <dt>Multi-Factor Authentication</dt>
                       <dd>
                         <span
-                          className={`status-indicator ${account.mfa ? "enabled" : "disabled"}`}
+                          className={`status-indicator ${
+                            account.mfa ? "enabled" : "disabled"
+                          }`}
                         >
                           {account.mfa ? "Enabled" : "Disabled"}
                         </span>
@@ -100,7 +104,9 @@ const AccountView = ({ account }: AccountPageProps) => {
                       <dt>Phone Verification</dt>
                       <dd>
                         <span
-                          className={`status-indicator ${account.phoneVerification ? "enabled" : "disabled"}`}
+                          className={`status-indicator ${
+                            account.phoneVerification ? "enabled" : "disabled"
+                          }`}
                         >
                           {account.phoneVerification
                             ? "Verified"
@@ -131,7 +137,9 @@ const AccountView = ({ account }: AccountPageProps) => {
                         <p className="identifier">{target.identifier}</p>
                       </div>
                       <span
-                        className={`method-status ${target.expired ? "expired" : "active"}`}
+                        className={`method-status ${
+                          target.expired ? "expired" : "active"
+                        }`}
                       >
                         {target.expired ? "Expired" : "Active"}
                       </span>
