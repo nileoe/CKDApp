@@ -7,10 +7,26 @@ import {
 import "./Navbar.scss";
 import { logout } from "../../backend/userActions";
 import { account } from "../../backend/appwriteConfig";
+import { useEffect, useState } from "react";
 //import { useAuth } from '../auth/useAuth';
 //
 function Navbar() {
-  const isAdmin = account?.prefs?.role === "admin";
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await account.get();
+        setUser(userData);
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const isAdmin = user?.prefs?.role?.toLowerCase() === "admin";
 
   return (
     <nav>
@@ -18,20 +34,17 @@ function Navbar() {
         <NavLink to="/calculator" className="navItem leftItem">
           Calculator
         </NavLink>
-
         <NavLink to="/pediatric_calculator" className="navItem leftItem">
           Pediatric Calculator
         </NavLink>
-
         <NavLink to="/past_results" className="navItem leftItem">
           Past Results
         </NavLink>
-
         <NavLink to="/pediatric_results" className="navItem leftItem">
           Pediatric Results
         </NavLink>
 
-        {!isAdmin && (
+        {isAdmin && (
           <NavLink to="/patients" className="navItem leftItem">
             My Patients
           </NavLink>

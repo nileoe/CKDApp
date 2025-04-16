@@ -12,10 +12,9 @@
 
   .patientGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    padding-top: 1rem;
   }
 
   .patientCard {
@@ -76,6 +75,54 @@
 
     p.noDataP {
       font-style: italic;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+
+    .searchInput {
+      flex: 1;
+      min-width: 240px;
+      margin-right: 1rem;
+
+      input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 20px;
+        font-size: 1rem;
+        background-color: #fff;
+        color: #444;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        outline: none;
+
+        &::placeholder {
+          color: #aaa;
+        }
+      }
+    }
+
+    .filterBtn {
+      background-color: #a5c7b9;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background-color: #8fb0a5;
+      }
     }
   }
 }
