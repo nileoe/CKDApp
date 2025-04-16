@@ -21,7 +21,7 @@ export const saveCalculation = async (newCalculation: any) => {
         eGFRResult: newCalculation.calculationResult.eGFRResult,
         ckdStage: newCalculation.calculationResult.ckdStage,
         ckdDescription: newCalculation.calculationResult.ckdDescription,
-      }
+      },
     );
     return response;
   } catch (error) {
@@ -36,7 +36,7 @@ export const saveCalculationPedi = async (newData: any) => {
       DB_ID,
       pediatricCal,
       ID.unique(),
-      newData
+      newData,
     );
     return response;
   } catch (error) {
@@ -45,21 +45,6 @@ export const saveCalculationPedi = async (newData: any) => {
   }
 };
 
-/*
-export const getUserCalculations = async (userId: string) => {
-  try {
-    const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal("userId", userId),
-      Query.orderDesc("$createdAt"),
-    ]);
-    return response.documents;
-  } catch (error) {
-    console.error("Failed to fetch calculations:", error);
-    throw error;
-  }
-};
-*/
-
 export const getUserCalculations = async (userId: string) => {
   try {
     const filters = userId === "all" ? [] : [Query.equal("userId", userId)];
@@ -67,7 +52,7 @@ export const getUserCalculations = async (userId: string) => {
     const res = await databases.listDocuments(
       "CKD_DB",
       "Calculations",
-      filters
+      filters,
     );
 
     return res.documents;

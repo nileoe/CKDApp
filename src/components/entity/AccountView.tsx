@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { User } from "../../types/UserTypes";
+import { formatDateTime } from "../../utils/DateUtils";
 import "./AccountView.scss";
 
 interface AccountPageProps {
@@ -8,17 +9,6 @@ interface AccountPageProps {
 
 const AccountView = ({ account }: AccountPageProps) => {
   // initialization -----------
-  const formatDate = (dateString: any) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
   const daysSinceRegistration = () => {
     const registrationDate = new Date(account.registration);
     const today = new Date();
@@ -117,7 +107,7 @@ const AccountView = ({ account }: AccountPageProps) => {
                     </div>
                     <div className="detail-item">
                       <dt>Password Last Updated</dt>
-                      <dd>{formatDate(account.passwordUpdate)}</dd>
+                      <dd>{formatDateTime(account.passwordUpdate)}</dd>
                     </div>
                   </div>
                 </div>
@@ -158,18 +148,18 @@ const AccountView = ({ account }: AccountPageProps) => {
               <div className="detail-list">
                 <div className="detail-item">
                   <dt>Account Created</dt>
-                  <dd>{formatDate(account.registration)}</dd>
+                  <dd>{formatDateTime(account.registration)}</dd>
                   <dd className="subtext">
                     {daysSinceRegistration()} days ago
                   </dd>
                 </div>
                 <div className="detail-item">
                   <dt>Last Active</dt>
-                  <dd>{formatDate(account.accessedAt)}</dd>
+                  <dd>{formatDateTime(account.accessedAt)}</dd>
                 </div>
                 <div className="detail-item">
                   <dt>Last Updated</dt>
-                  <dd>{formatDate(account.$updatedAt)}</dd>
+                  <dd>{formatDateTime(account.$updatedAt)}</dd>
                 </div>
               </div>
             </section>
