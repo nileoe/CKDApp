@@ -17,10 +17,8 @@ const PaediatricsResults = () => {
       try {
         const user = await getCurrentUser();
         if (user) {
-          //const userResults = await fetchPediatricResults(user.$id);
-          //setResults(userResults);
           const role = user.prefs?.role;
-          const data =
+          const data: any[] =
             role === "admin"
               ? await getPaediatricCal("all")
               : await fetchPediatricResults(user.$id);
