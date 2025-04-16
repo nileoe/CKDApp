@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useEffect, useState } from "react";
 import { getAllUserData } from "../../backend/userActions";
 import "./PatientListScreen.scss";
@@ -21,6 +22,7 @@ const PatientListScreen = () => {
   const [loading, setLoading] = useState(true);
   const [calculationsAreLoaded, setCalculationsAreLoaded] =
     useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -39,11 +41,11 @@ const PatientListScreen = () => {
 
   const findLastCalculationData = (
     calculations: any[],
-    userId: string,
+    userId: string
   ): { stage: string | null; cLevel: number | null } => {
     console.log(`user id: ${userId}`);
     const userCalculations = calculations.filter(
-      (calc) => calc.userId == userId,
+      (calc) => calc.userId == userId
     );
     console.log(`found ${userCalculations.length} calculations for user`);
     let stage = null;
@@ -61,6 +63,14 @@ const PatientListScreen = () => {
       cLevel: cLevel,
     };
   };
+
+  const filteredUsers = users.filter((user) => {
+    const term = searchTerm.trim().toLowerCase();
+    const name = user.name?.toLowerCase() || "";
+    const email = user.email?.toLowerCase() || "";
+    return name.includes(term) || email.includes(term);
+  });
+
   useEffect(() => {
     if (!users.length || calculationsAreLoaded) return;
     const loadUserCalculations = async () => {
@@ -73,7 +83,7 @@ const PatientListScreen = () => {
         const updatedUsers = users.map((u) => {
           const { stage, cLevel } = findLastCalculationData(
             calculations,
-            u.userId,
+            u.userId
           );
           return {
             ...u,
@@ -113,12 +123,24 @@ const PatientListScreen = () => {
 
   return (
     <div className="patientListContainer">
-      <h2>Patient List</h2>
+      <div className="header">
+        <div className="searchInput">
+          <input
+            type="text"
+            placeholder="Search by name or email"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        <button className="filterBtn">Filter</button>
+      </div>
+
       {loading ? (
         <p>Loading users...</p>
       ) : (
         <div className="patientGrid">
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             <div key={user.$id} className="patientCard">
               <p>
                 <strong>Name:</strong> {user.name}

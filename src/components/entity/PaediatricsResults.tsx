@@ -11,6 +11,14 @@ const PaediatricsResults = () => {
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredResults = results.filter((result) => {
+    const term = searchTerm.toLowerCase().trim();
+    const eGFR = result.eGFRResult?.toLowerCase() || "";
+    const sex = result.userSex?.toLowerCase() || "";
+    return eGFR.includes(term) || sex.includes(term);
+  });
 
   useEffect(() => {
     const loadResults = async () => {
@@ -42,16 +50,25 @@ const PaediatricsResults = () => {
   return (
     <div className="pastResultsContainer">
       <div className="header">
-        <h2>Pediatric eGFR Results</h2>
+        <div className="searchInput">
+          <input
+            type="text"
+            placeholder="Search by eGFR or sex"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        <button className="filterBtn">Filter</button>
       </div>
 
       {loading ? (
         <p>Loading...</p>
-      ) : results.length === 0 ? (
+      ) : filteredResults.length === 0 ? (
         <p>No results found.</p>
       ) : (
         <ul className="resultsList">
-          {results.map((result) => (
+          {filteredResults.map((result) => (
             <li
               key={result.$id}
               className={`resultItem ${
