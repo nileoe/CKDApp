@@ -18,7 +18,7 @@ const AccountView = ({ account }: AccountPageProps) => {
 
   // State -------------
   const isAdmin = account?.prefs?.role === "admin";
-  const userRoleLabel = isAdmin ? "Doctor" : "Clinician";
+  const userRoleLabel = isAdmin ? "Clinician" : "Patient";
 
   // Handlers ----------
   // View -----------

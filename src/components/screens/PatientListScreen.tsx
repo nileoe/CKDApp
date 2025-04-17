@@ -18,7 +18,7 @@ interface UserDoc {
 }
 
 const PatientListScreen = () => {
-  const [users, setUsers] = useState<UserDoc[]>([]);
+  const [users, setUsers] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [calculationsAreLoaded, setCalculationsAreLoaded] =
     useState<boolean>(false);
@@ -41,11 +41,11 @@ const PatientListScreen = () => {
 
   const findLastCalculationData = (
     calculations: any[],
-    userId: string
+    userId: string,
   ): { stage: string | null; cLevel: number | null } => {
     console.log(`user id: ${userId}`);
     const userCalculations = calculations.filter(
-      (calc) => calc.userId == userId
+      (calc) => calc.userId == userId,
     );
     console.log(`found ${userCalculations.length} calculations for user`);
     let stage = null;
@@ -83,7 +83,7 @@ const PatientListScreen = () => {
         const updatedUsers = users.map((u) => {
           const { stage, cLevel } = findLastCalculationData(
             calculations,
-            u.userId
+            u.userId,
           );
           return {
             ...u,
