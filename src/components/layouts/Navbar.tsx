@@ -25,8 +25,9 @@ function Navbar() {
 
     fetchUser();
   }, []);
+  console.log(user);
 
-  const isAdmin = user?.prefs?.role?.toLowerCase() === "admin";
+  const isAdmin = user?.labels.includes("admin");
 
   return (
     <nav>

@@ -17,8 +17,10 @@ const AccountView = ({ account }: AccountPageProps) => {
   };
 
   // State -------------
-  const isAdmin = account?.prefs?.role === "admin";
+  const isAdmin = account?.labels.includes("admin");
   const userRoleLabel = isAdmin ? "Clinician" : "Patient";
+  console.log(`printing labels:`);
+  console.log(account.labels);
 
   // Handlers ----------
   // View -----------
